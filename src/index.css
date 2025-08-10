@@ -39,20 +39,23 @@ All colors MUST be HSL.
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Brand & skill category tokens */
+    --brand: 222 85% 55%;
+    --brand-foreground: 210 40% 98%;
+    --skill-blue: 222 85% 55%;
+    --skill-green: 142 70% 45%;
+    --skill-purple: 265 70% 60%;
+    --skill-orange: 28 90% 55%;
+    --skill-red: 0 70% 55%;
+    --skill-teal: 190 85% 45%;
   }
 
   .dark {
@@ -100,6 +103,13 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
   }
+}
+
+@layer utilities {
+  .story-link {
+    @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
+  }
+  .hover-scale { @apply transition-transform duration-200 hover:scale-105; }
 }
