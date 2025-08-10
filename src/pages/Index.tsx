@@ -4,7 +4,8 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SkillCard } from "@/components/SkillCard";
-import PhishGame from "@/components/PhishGame";
+import CodeDefenseGame from "@/components/CodeDefenseGame";
+import CyberBackground from "@/components/CyberBackground";
 
 const Index = () => {
   useEffect(() => {
@@ -49,6 +50,7 @@ const Index = () => {
     <div id="top">
       <Header />
       <main>
+        <CyberBackground />
         {/* Hero */}
         <section className="relative overflow-hidden">
           <div className="container mx-auto px-4 pt-16 pb-20">
@@ -188,8 +190,8 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Mini Game */}
-        <PhishGame />
+        {/* Game */}
+        <CodeDefenseGame />
 
         {/* Experience */}
         <section id="experience" className="py-16">
