@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Fixed, pointer-events-none cyber background that reacts to cursor.
+ * Fixed, pointer-events-none neon lab background that reacts to cursor.
  * Uses design tokens via CSS variables for colors.
  */
 export default function CyberBackground() {

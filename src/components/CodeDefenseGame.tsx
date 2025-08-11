@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
+
 import { toast } from "@/hooks/use-toast";
+import MonsterRow from "@/components/game/MonsterRow";
+import ChallengePanel from "@/components/game/ChallengePanel";
 
 interface Monster {
   id: number;
@@ -233,13 +235,13 @@ export default function CodeDefenseGame() {
             {/* Monsters */}
             <div className="space-y-3">
               {alive.map((m) => (
-                <div key={m.id} className="rounded-lg border p-3">
-                  <div className="flex items-center justify-between text-sm mb-2">
-                    <div className="font-medium">{m.name}</div>
-                    <div className="text-muted-foreground">HP {m.hp} / {m.maxHp}</div>
-                  </div>
-                  <Progress value={100 - m.distance} className="h-2" />
-                </div>
+                <MonsterRow
+                  key={m.id}
+                  name={m.name}
+                  hp={m.hp}
+                  maxHp={m.maxHp}
+                  distance={m.distance}
+                />
               ))}
               {!alive.length && started && (
                 <div className="text-center text-sm text-muted-foreground">Preparing next wave…</div>
@@ -247,34 +249,12 @@ export default function CodeDefenseGame() {
             </div>
 
             {/* Challenge */}
-            <div className="rounded-xl border p-4 bg-muted/30 animate-enter">
-              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Challenge</div>
-              <div className="text-sm font-medium">{current.prompt}</div>
-              <pre className="mt-3 text-sm overflow-x-auto rounded-lg border bg-background/60 p-3">
-                <code>
-                  {current.code.replace(/___/g, "▁▁▁")}
-                </code>
-              </pre>
-
-              {current.choices ? (
-                <div className="mt-4 grid grid-cols-3 gap-2">
-                  {current.choices.map((c) => (
-                    <Button key={c} variant="secondary" onClick={() => dealDamage(c)}>{c}</Button>
-                  ))}
-                </div>
-              ) : (
-                <form className="mt-4 flex gap-2" onSubmit={(e) => { e.preventDefault(); dealDamage(answer); }}>
-                  <input
-                    aria-label="Your answer"
-                    value={answer}
-                    onChange={(e) => setAnswer(e.target.value)}
-                    className="flex-1 rounded-md border bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                    placeholder="Type the missing code (e.g. map, 42)"
-                  />
-                  <Button type="submit" variant="hero">Submit</Button>
-                </form>
-              )}
-            </div>
+            <ChallengePanel
+              current={current}
+              answer={answer}
+              setAnswer={setAnswer}
+              onSubmit={dealDamage}
+            />
 
             {/* Controls */}
             <div className="flex items-center justify-center gap-3">

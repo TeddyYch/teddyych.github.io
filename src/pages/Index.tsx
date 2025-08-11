@@ -19,7 +19,7 @@ const Index = () => {
     }
     link.setAttribute("href", href);
 
-    document.title = "Teddy Yiu — Web Developer & Cybersecurity";
+    document.title = "Teddy Yiu — Full‑Stack Developer";
 
     // Structured data
     const script = document.createElement("script");
@@ -29,7 +29,7 @@ const Index = () => {
       "@type": "Person",
       name: "Teddy Yiu",
       email: "mailto:yiuchunh@gmail.com",
-      jobTitle: "Web Developer | Cybersecurity Enthusiast",
+      jobTitle: "Full‑Stack Developer",
       alumniOf: [
         { "@type": "CollegeOrUniversity", name: "HKUST" },
         { "@type": "CollegeOrUniversity", name: "IVE (VTC)" },
@@ -56,10 +56,10 @@ const Index = () => {
           <div className="container mx-auto px-4 pt-16 pb-20">
             <div className="rounded-2xl border p-10 md:p-16 bg-gradient-to-br from-skillBlue/10 via-background to-skillPurple/10">
               <h1 className="font-display text-4xl md:text-5xl font-semibold tracking-tight">
-                Teddy Yiu — Web Developer & Cybersecurity
+                Teddy Yiu — Full‑Stack Developer
               </h1>
               <p className="mt-4 text-muted-foreground max-w-2xl">
-                Building performant web apps with React & TypeScript, and advocating secure-by-design practices. Passionate about AI/ML, automation, and developer experience.
+                Building reliable, delightful full‑stack apps with React, TypeScript, and modern backends. Passionate about DX, performance, and AI‑powered features.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Button variant="hero" asChild>
@@ -90,8 +90,8 @@ const Index = () => {
                 </Card>
                 <Card>
                   <CardContent className="p-4">
-                    <div className="font-medium">Security</div>
-                    <div>Phishing Awareness • MFA</div>
+                    <div className="font-medium">Backend & APIs</div>
+                    <div>Node.js • Express • Supabase</div>
                   </CardContent>
                 </Card>
               </div>
@@ -105,7 +105,7 @@ const Index = () => {
             <div>
               <h2 className="text-3xl font-semibold">About</h2>
               <p className="mt-4 text-muted-foreground leading-relaxed">
-                I’m Teddy, a developer with an accounting foundation turned engineer — bringing a pragmatic, data‑driven mindset to software. My recent work spans a web‑based AI Fashion Recommendation system (FYP with Kinetix), automation workflows using Zapier/n8n/Make at YMCA HK, and hands‑on testing and Python scripting at Ask IT. I care about clean UX, reliability, and security.
+                I’m Teddy, a developer with an accounting foundation turned engineer — bringing a pragmatic, data‑driven mindset to software. My recent work spans a web‑based AI Fashion Recommendation system (FYP with Kinetix), automation workflows using Zapier/n8n/Make at YMCA HK, and hands‑on testing and Python scripting at Ask IT. I care about clean UX, reliability, and performance.
               </p>
               <div className="mt-6">
                 <Button variant="soft" asChild>
@@ -125,7 +125,7 @@ const Index = () => {
                 </div>
                 <div>
                   <dt className="text-muted-foreground">Focus</dt>
-                  <dd className="font-medium">Frontend • AI/ML • Security</dd>
+                  <dd className="font-medium">Frontend • Backend • AI/ML</dd>
                 </div>
                 <div>
                   <dt className="text-muted-foreground">Languages</dt>
@@ -206,7 +206,7 @@ const Index = () => {
                   </div>
                   <ul className="mt-3 list-disc pl-5 text-sm leading-relaxed text-muted-foreground">
                     <li>Designed and implemented HR requisition & shortlisting automation (Zapier).</li>
-                    <li>Led cybersecurity awareness with GoPhish simulations.</li>
+                    <li>Led awareness training with realistic email simulations.</li>
                     <li>Benchmarked n8n, Zapier, and Make for team workflows.</li>
                   </ul>
                 </CardContent>
