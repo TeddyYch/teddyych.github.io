@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import ymcaLogo from "@/assets/logos/ymca-logo.png";
 import kinetixLogo from "@/assets/logos/kinetix-logo.png";
 import askitLogo from "@/assets/logos/askit-logo.png";
-import hoosangLogo from "@/assets/logos/hoosang-logo.png";
+import cpaLogo from "@/assets/logos/cpa-logo.png";
 
 interface TimelineItem {
   year: string;
@@ -62,7 +62,7 @@ const timelineItems: TimelineItem[] = [
       "Brought analytical rigor and attention to detail later applied to engineering work."
     ],
     color: "purple",
-    logo: hoosangLogo
+    logo: cpaLogo
   }
 ];
 

@@ -57,8 +57,8 @@ const Index = () => {
         <section className="relative overflow-hidden">
           <div className="container mx-auto px-4 pt-16 pb-20">
             <div className="rounded-2xl border p-10 md:p-16 bg-gradient-to-br from-skillBlue/10 via-background to-skillPurple/10">
-              <h1 className="font-display text-4xl md:text-5xl font-semibold tracking-tight">
-                Teddy Yiu — Full‑Stack Developer
+              <h1 className="font-orbitron text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-skillBlue to-skillPurple bg-clip-text text-transparent">
+                Rui Wang — Full‑Stack Developer
               </h1>
               <p className="mt-4 text-muted-foreground max-w-2xl">
                 Building reliable, delightful full‑stack apps with React, TypeScript, and modern backends. Passionate about DX, performance, and AI‑powered features.
@@ -105,7 +105,7 @@ const Index = () => {
         <section id="about" className="py-16">
           <div className="container mx-auto px-4 grid md:grid-cols-2 gap-8 items-start">
             <div>
-              <h2 className="text-3xl font-semibold">About</h2>
+              <h2 className="text-3xl font-bold font-orbitron bg-gradient-to-r from-skillOrange to-skillRed bg-clip-text text-transparent">About</h2>
               <p className="mt-4 text-muted-foreground leading-relaxed">
                 I’m Teddy, a developer with an accounting foundation turned engineer — bringing a pragmatic, data‑driven mindset to software. My recent work spans a web‑based AI Fashion Recommendation system (FYP with Kinetix), automation workflows using Zapier/n8n/Make at YMCA HK, and hands‑on testing and Python scripting at Ask IT. I care about clean UX, reliability, and performance.
               </p>
@@ -141,7 +141,7 @@ const Index = () => {
         {/* Skills */}
         <section id="skills" className="py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-semibold mb-8">Skills</h2>
+            <h2 className="text-3xl font-bold mb-8 font-orbitron bg-gradient-to-r from-skillPurple to-skillTeal bg-clip-text text-transparent">Skills</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <SkillCard
                 title="Programming Languages & Web Fundamentals"
@@ -198,32 +198,56 @@ const Index = () => {
         {/* Experience */}
         <section id="experience" className="py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-semibold mb-12">Professional Experience</h2>
+            <h2 className="text-3xl font-bold mb-12 font-orbitron bg-gradient-to-r from-skillGreen to-skillTeal bg-clip-text text-transparent">Professional Experience</h2>
             <Timeline />
           </div>
         </section>
 
         {/* Education */}
-        <section id="education" className="py-16">
+        <section id="education" className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-semibold mb-8">Education</h2>
-            <div className="grid gap-6 md:grid-cols-2">
-              <Card>
-                <CardContent className="p-6">
-                  <div className="font-medium">HKUST</div>
-                  <div className="text-sm text-muted-foreground">BEng in Computer Science — 2024 – Present</div>
+            <h2 className="text-3xl font-bold mb-12 font-orbitron bg-gradient-to-r from-skillPurple to-skillBlue bg-clip-text text-transparent">Education</h2>
+            <div className="grid gap-8 md:grid-cols-3">
+              <Card className="bg-gradient-to-br from-skillBlue/10 to-skillPurple/10 border-2 border-skillBlue/20 hover:scale-105 transition-all duration-300 shadow-xl">
+                <CardContent className="p-8">
+                  <div className="text-center mb-6">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-skillBlue to-skillPurple rounded-full flex items-center justify-center">
+                      <span className="text-2xl font-bold text-white font-orbitron">H</span>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <h3 className="text-2xl font-bold mb-2 font-poppins text-skillBlue">HKUST</h3>
+                    <p className="text-lg font-medium mb-2">BEng in Computer Science</p>
+                    <p className="text-muted-foreground font-medium">2024 – Present</p>
+                  </div>
                 </CardContent>
               </Card>
-              <Card>
-                <CardContent className="p-6">
-                  <div className="font-medium">IVE (VTC)</div>
-                  <div className="text-sm text-muted-foreground">Higher Diploma in Software Engineering — 2022 – 2024</div>
+              <Card className="bg-gradient-to-br from-skillOrange/10 to-skillRed/10 border-2 border-skillOrange/20 hover:scale-105 transition-all duration-300 shadow-xl">
+                <CardContent className="p-8">
+                  <div className="text-center mb-6">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-skillOrange to-skillRed rounded-full flex items-center justify-center">
+                      <span className="text-2xl font-bold text-white font-orbitron">I</span>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <h3 className="text-2xl font-bold mb-2 font-poppins text-skillOrange">IVE (VTC)</h3>
+                    <p className="text-lg font-medium mb-2">Higher Diploma in Software Engineering</p>
+                    <p className="text-muted-foreground font-medium">2022 – 2024</p>
+                  </div>
                 </CardContent>
               </Card>
-              <Card>
-                <CardContent className="p-6">
-                  <div className="font-medium">Hong Kong Metropolitan University (OUHK/HKMU)</div>
-                  <div className="text-sm text-muted-foreground">BBA in Accounting — 2013 – 2016</div>
+              <Card className="bg-gradient-to-br from-skillGreen/10 to-skillTeal/10 border-2 border-skillGreen/20 hover:scale-105 transition-all duration-300 shadow-xl">
+                <CardContent className="p-8">
+                  <div className="text-center mb-6">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-skillGreen to-skillTeal rounded-full flex items-center justify-center">
+                      <span className="text-2xl font-bold text-white font-orbitron">M</span>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <h3 className="text-2xl font-bold mb-2 font-poppins text-skillGreen">HKMU</h3>
+                    <p className="text-lg font-medium mb-2">BBA in Accounting</p>
+                    <p className="text-muted-foreground font-medium">2013 – 2016</p>
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -233,7 +257,7 @@ const Index = () => {
         {/* Certificates */}
         <section id="certs" className="py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-semibold mb-8">Professional Certifications</h2>
+            <h2 className="text-3xl font-bold mb-8 font-orbitron bg-gradient-to-r from-skillRed to-skillOrange bg-clip-text text-transparent">Professional Certifications</h2>
             <CertificateGallery />
           </div>
         </section>
@@ -241,7 +265,7 @@ const Index = () => {
         {/* Contact */}
         <section id="contact" className="py-16">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-semibold">Get in touch</h2>
+            <h2 className="text-3xl font-bold font-orbitron bg-gradient-to-r from-skillTeal to-skillGreen bg-clip-text text-transparent">Get in touch</h2>
             <p className="text-muted-foreground mt-2">Open to internships and junior developer roles.</p>
             <div className="mt-6 flex justify-center">
               <Button variant="hero" asChild>
