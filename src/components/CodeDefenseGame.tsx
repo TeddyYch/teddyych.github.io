@@ -90,10 +90,10 @@ const CHALLENGES: Challenge[] = [
 ];
 
 function spawnWave(wave: number): Monster[] {
-  const count = Math.min(3 + wave, 7);
+  const count = Math.min(2 + wave, 5);
   return new Array(count).fill(0).map((_, i) => {
-    const baseHp = 60 + wave * 15 + i * 5;
-    const speed = 6 + Math.min(wave * 1.5, 12) + Math.random() * 2;
+    const baseHp = 40 + wave * 10 + i * 5;
+    const speed = 3 + Math.min(wave * 0.8, 8) + Math.random() * 1;
     return {
       id: Date.now() + i,
       name: `Bug ${wave}-${i + 1}`,
@@ -133,7 +133,7 @@ export default function CodeDefenseGame() {
           }
           return next;
         });
-      }, 1000);
+      }, 1500);
     }
     return () => {
       if (tickRef.current) window.clearInterval(tickRef.current);

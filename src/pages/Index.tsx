@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Timeline from "@/components/Timeline";
+import CertificateGallery from "@/components/CertificateGallery";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SkillCard } from "@/components/SkillCard";
@@ -196,58 +198,8 @@ const Index = () => {
         {/* Experience */}
         <section id="experience" className="py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-semibold mb-8">Experience</h2>
-            <div className="grid gap-6">
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <div className="font-medium">YMCA HK — Automation Intern</div>
-                    <div className="text-sm text-muted-foreground">06/2025 – 09/2025</div>
-                  </div>
-                  <ul className="mt-3 list-disc pl-5 text-sm leading-relaxed text-muted-foreground">
-                    <li>Designed and implemented HR requisition & shortlisting automation (Zapier).</li>
-                    <li>Led awareness training with realistic email simulations.</li>
-                    <li>Benchmarked n8n, Zapier, and Make for team workflows.</li>
-                  </ul>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <div className="font-medium">Kinetix Systems Holding Limited — Software Engineering Intern</div>
-                    <div className="text-sm text-muted-foreground">01/2024 – 05/2024</div>
-                  </div>
-                  <ul className="mt-3 list-disc pl-5 text-sm leading-relaxed text-muted-foreground">
-                    <li>Co-developed a web-based AI Fashion Recommendation System (FYP) from prototype to demo.</li>
-                    <li>Integrated ML inference and responsive UI components.</li>
-                  </ul>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <div className="font-medium">Ask IT Limited — Software Engineering Intern</div>
-                    <div className="text-sm text-muted-foreground">09/2023 – 12/2023</div>
-                  </div>
-                  <ul className="mt-3 list-disc pl-5 text-sm leading-relaxed text-muted-foreground">
-                    <li>System testing, Python scripting, and database updates to support daily operations.</li>
-                    <li>Researched IT market needs to guide feature prioritization.</li>
-                  </ul>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <div className="font-medium">Hoosang, Lyn, Li & Co. Ltd. — Audit Senior</div>
-                    <div className="text-sm text-muted-foreground">02/2016 – 08/2022</div>
-                  </div>
-                  <ul className="mt-3 list-disc pl-5 text-sm leading-relaxed text-muted-foreground">
-                    <li>Delivered full-set audit assignments, drafted financial statements and tax computations.</li>
-                    <li>Brought analytical rigor and attention to detail later applied to engineering work.</li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
+            <h2 className="text-3xl font-semibold mb-12">Professional Experience</h2>
+            <Timeline />
           </div>
         </section>
 
@@ -281,16 +233,8 @@ const Index = () => {
         {/* Certificates */}
         <section id="certs" className="py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-semibold mb-6">Certificates</h2>
-            <div className="rounded-xl border p-6">
-              <ul className="grid md:grid-cols-2 gap-3 text-sm">
-                <li className="text-skillGreen">Microsoft 365 (MS-365)</li>
-                <li className="text-skillGreen">Microsoft AI-900</li>
-                <li className="text-skillGreen">Alibaba ACA Cloud Computing</li>
-                <li className="text-skillGreen">Oracle Cloud Infrastructure Certified AI Foundations Associate</li>
-                <li className="text-skillGreen">Oracle Data Platform Certified Foundations Associate</li>
-              </ul>
-            </div>
+            <h2 className="text-3xl font-semibold mb-8">Professional Certifications</h2>
+            <CertificateGallery />
           </div>
         </section>
 

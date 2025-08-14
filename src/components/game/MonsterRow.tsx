@@ -13,9 +13,15 @@ export default function MonsterRow({
   distance: number;
 }) {
   const hpPct = Math.max(0, Math.round((hp / Math.max(1, maxHp)) * 100));
-  const proximity = distance <= 25 ? "Critical" : distance <= 50 ? "Near" : "Far";
+  
+  // Distance color logic: 0-50% = green (safe), 51-100% = red (danger)
+  const distancePct = Math.max(0, 100 - distance);
+  const isDistanceDangerous = distancePct > 50;
+  const distanceColor = isDistanceDangerous ? "bg-skillRed" : "bg-skillGreen";
+  
+  const proximity = distance <= 25 ? "Critical" : distance <= 50 ? "Near" : "Safe";
   const proximityVariant = distance <= 25 ? ("destructive" as const) : distance <= 50 ? ("secondary" as const) : ("outline" as const);
-  const containerGlow = distance <= 25 ? "ring-2 ring-primary/40" : "";
+  const containerGlow = distance <= 25 ? "ring-2 ring-skillRed/40" : "";
 
   return (
     <div className={"rounded-lg border p-3 bg-background/60 relative overflow-hidden " + containerGlow}>
@@ -39,10 +45,15 @@ export default function MonsterRow({
         </div>
         <div>
           <div className="flex justify-between text-[11px] text-muted-foreground">
-            <span>Distance</span>
+            <span>Progress to Base</span>
             <span>{Math.max(0, Math.round(100 - distance))}%</span>
           </div>
-          <Progress value={Math.max(0, 100 - distance)} className="h-1" />
+          <div className="h-1 bg-muted rounded-full overflow-hidden">
+            <div 
+              className={`h-full transition-all duration-300 ${distanceColor}`}
+              style={{ width: `${Math.max(0, 100 - distance)}%` }}
+            />
+          </div>
         </div>
       </div>
 
