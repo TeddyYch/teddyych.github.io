@@ -8,6 +8,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { SkillCard } from "@/components/SkillCard";
 import CodeDefenseGame from "@/components/CodeDefenseGame";
 import CyberBackground from "@/components/CyberBackground";
+import hkustLogo from "@/assets/logos/hkust-logo.png";
+import iveLogo from "@/assets/logos/ive-logo.png";
+import hkmuLogo from "@/assets/logos/hkmu-logo.png";
 
 const Index = () => {
   useEffect(() => {
@@ -57,9 +60,12 @@ const Index = () => {
         <section className="relative overflow-hidden">
           <div className="container mx-auto px-4 pt-16 pb-20">
             <div className="rounded-2xl border p-10 md:p-16 bg-gradient-to-br from-skillBlue/10 via-background to-skillPurple/10">
-              <h1 className="font-orbitron text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-skillBlue to-skillPurple bg-clip-text text-transparent">
-                Rui Wang — Full‑Stack Developer
+              <h1 className="font-serif text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-2">
+                Teddy Yiu
               </h1>
+              <div className="text-2xl md:text-3xl font-orbitron bg-gradient-to-r from-skillBlue to-skillPurple bg-clip-text text-transparent">
+                Full‑Stack Developer
+              </div>
               <p className="mt-4 text-muted-foreground max-w-2xl">
                 Building reliable, delightful full‑stack apps with React, TypeScript, and modern backends. Passionate about DX, performance, and AI‑powered features.
               </p>
@@ -174,6 +180,11 @@ const Index = () => {
                 items={["Zapier","n8n","Make"]}
               />
               <SkillCard
+                title="Workflow & Process Automation"
+                tone="orange"
+                items={["n8n AI Agent Workflows","HTTP Content Fetching","Zapier HR Requisition System","Multi-step Process Design"]}
+              />
+              <SkillCard
                 title="Tools & OS — Development Tools"
                 tone="orange"
                 items={["Git","GitHub","Android Studio","Linux","VSCode","MySQL","MongoDB","Firebase","Jupyter"]}
@@ -211,42 +222,54 @@ const Index = () => {
               <Card className="bg-gradient-to-br from-skillBlue/10 to-skillPurple/10 border-2 border-skillBlue/20 hover:scale-105 transition-all duration-300 shadow-xl">
                 <CardContent className="p-8">
                   <div className="text-center mb-6">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-skillBlue to-skillPurple rounded-full flex items-center justify-center">
-                      <span className="text-2xl font-bold text-white font-orbitron">H</span>
+                    <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-lg">
+                      <img 
+                        src="/lovable-uploads/2df912e5-a1b4-4fb8-b336-4246e3ec034c.png" 
+                        alt="HKUST Logo"
+                        className="w-14 h-14 object-contain"
+                      />
                     </div>
                   </div>
                   <div className="text-center">
-                    <h3 className="text-2xl font-bold mb-2 font-poppins text-skillBlue">HKUST</h3>
-                    <p className="text-lg font-medium mb-2">BEng in Computer Science</p>
-                    <p className="text-muted-foreground font-medium">2024 – Present</p>
+                    <h3 className="text-3xl font-bold mb-3 font-poppins text-skillBlue">HKUST</h3>
+                    <p className="text-xl font-semibold mb-3 text-foreground">BEng in Computer Science</p>
+                    <p className="text-lg text-muted-foreground font-medium">2024 – Present</p>
                   </div>
                 </CardContent>
               </Card>
               <Card className="bg-gradient-to-br from-skillOrange/10 to-skillRed/10 border-2 border-skillOrange/20 hover:scale-105 transition-all duration-300 shadow-xl">
                 <CardContent className="p-8">
                   <div className="text-center mb-6">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-skillOrange to-skillRed rounded-full flex items-center justify-center">
-                      <span className="text-2xl font-bold text-white font-orbitron">I</span>
+                    <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-lg">
+                      <img 
+                        src="/lovable-uploads/03d9e0dd-9eba-46a0-b6c9-0b2c7850b526.png" 
+                        alt="IVE Logo"
+                        className="w-14 h-14 object-contain"
+                      />
                     </div>
                   </div>
                   <div className="text-center">
-                    <h3 className="text-2xl font-bold mb-2 font-poppins text-skillOrange">IVE (VTC)</h3>
-                    <p className="text-lg font-medium mb-2">Higher Diploma in Software Engineering</p>
-                    <p className="text-muted-foreground font-medium">2022 – 2024</p>
+                    <h3 className="text-3xl font-bold mb-3 font-poppins text-skillOrange">IVE (VTC)</h3>
+                    <p className="text-xl font-semibold mb-3 text-foreground">Higher Diploma in Software Engineering</p>
+                    <p className="text-lg text-muted-foreground font-medium">2022 – 2024</p>
                   </div>
                 </CardContent>
               </Card>
               <Card className="bg-gradient-to-br from-skillGreen/10 to-skillTeal/10 border-2 border-skillGreen/20 hover:scale-105 transition-all duration-300 shadow-xl">
                 <CardContent className="p-8">
                   <div className="text-center mb-6">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-skillGreen to-skillTeal rounded-full flex items-center justify-center">
-                      <span className="text-2xl font-bold text-white font-orbitron">M</span>
+                    <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-lg">
+                      <img 
+                        src="/lovable-uploads/4da1fd42-a1f6-4235-a1f9-7fcc2e1e30f7.png" 
+                        alt="HKMU Logo"
+                        className="w-14 h-14 object-contain"
+                      />
                     </div>
                   </div>
                   <div className="text-center">
-                    <h3 className="text-2xl font-bold mb-2 font-poppins text-skillGreen">HKMU</h3>
-                    <p className="text-lg font-medium mb-2">BBA in Accounting</p>
-                    <p className="text-muted-foreground font-medium">2013 – 2016</p>
+                    <h3 className="text-3xl font-bold mb-3 font-poppins text-skillGreen">HKMU</h3>
+                    <p className="text-xl font-semibold mb-3 text-foreground">BBA in Accounting</p>
+                    <p className="text-lg text-muted-foreground font-medium">2013 – 2016</p>
                   </div>
                 </CardContent>
               </Card>
