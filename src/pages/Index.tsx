@@ -203,6 +203,62 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Automation Workflows */}
+        <section id="automation" className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-8 font-orbitron bg-gradient-to-r from-skillTeal to-skillBlue bg-clip-text text-transparent">Automation Workflows</h2>
+            <p className="text-muted-foreground mb-12 max-w-2xl">
+              I design and build sophisticated automation workflows using n8n and Zapier to streamline business processes and enhance productivity.
+            </p>
+            
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* n8n AI Agent Workflow */}
+              <div className="bg-gradient-to-br from-skillTeal/10 to-skillBlue/10 border-2 border-skillTeal/20 rounded-xl p-6 hover:scale-105 transition-all duration-300 shadow-xl">
+                <h3 className="text-xl font-bold mb-4 font-poppins text-skillTeal">n8n AI Agent Content Fetcher</h3>
+                <div className="mb-4 rounded-lg overflow-hidden border">
+                  <img 
+                    src="/lovable-uploads/f69d2479-da2c-4ecb-871f-60b201713835.png" 
+                    alt="n8n AI Agent workflow for fetching and processing web content"
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Built an AI Agent capable of fetching random pages with intelligent content extraction. 
+                  Features multi-step processing: HTTP requests, HTML body extraction, tag removal, 
+                  URL cleanup, and Markdown conversion with configurable length limits.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="px-3 py-1 text-xs bg-skillTeal/20 text-skillTeal rounded-full">n8n</span>
+                  <span className="px-3 py-1 text-xs bg-skillBlue/20 text-skillBlue rounded-full">AI Agent</span>
+                  <span className="px-3 py-1 text-xs bg-skillPurple/20 text-skillPurple rounded-full">HTTP Processing</span>
+                </div>
+              </div>
+
+              {/* Zapier HR Requisition System */}
+              <div className="bg-gradient-to-br from-skillOrange/10 to-skillRed/10 border-2 border-skillOrange/20 rounded-xl p-6 hover:scale-105 transition-all duration-300 shadow-xl">
+                <h3 className="text-xl font-bold mb-4 font-poppins text-skillOrange">Zapier HR Requisition System</h3>
+                <div className="mb-4 rounded-lg overflow-hidden border">
+                  <img 
+                    src="/lovable-uploads/d9af498a-a1ca-446e-aba6-d148671b363e.png" 
+                    alt="Zapier HR requisition and staff shortlisting automation workflow"
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Developed a comprehensive HR requisition and shortlisting system with automated 
+                  workflow branching, data analysis, email generation, and multi-path processing 
+                  for manager and general grade positions.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="px-3 py-1 text-xs bg-skillOrange/20 text-skillOrange rounded-full">Zapier</span>
+                  <span className="px-3 py-1 text-xs bg-skillRed/20 text-skillRed rounded-full">HR Automation</span>
+                  <span className="px-3 py-1 text-xs bg-skillGreen/20 text-skillGreen rounded-full">Process Design</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Game */}
         <CodeDefenseGame />
 
@@ -222,11 +278,11 @@ const Index = () => {
               <Card className="bg-gradient-to-br from-skillBlue/10 to-skillPurple/10 border-2 border-skillBlue/20 hover:scale-105 transition-all duration-300 shadow-xl">
                 <CardContent className="p-8">
                   <div className="text-center mb-6">
-                    <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-lg">
+                    <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-lg flex items-center justify-center shadow-lg p-2">
                       <img 
                         src="/lovable-uploads/2df912e5-a1b4-4fb8-b336-4246e3ec034c.png" 
                         alt="HKUST Logo"
-                        className="w-14 h-14 object-contain"
+                        className="w-full h-full object-contain"
                       />
                     </div>
                   </div>
@@ -240,11 +296,11 @@ const Index = () => {
               <Card className="bg-gradient-to-br from-skillOrange/10 to-skillRed/10 border-2 border-skillOrange/20 hover:scale-105 transition-all duration-300 shadow-xl">
                 <CardContent className="p-8">
                   <div className="text-center mb-6">
-                    <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-lg">
+                    <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-lg flex items-center justify-center shadow-lg p-2">
                       <img 
                         src="/lovable-uploads/03d9e0dd-9eba-46a0-b6c9-0b2c7850b526.png" 
                         alt="IVE Logo"
-                        className="w-14 h-14 object-contain"
+                        className="w-full h-full object-contain"
                       />
                     </div>
                   </div>
@@ -258,11 +314,11 @@ const Index = () => {
               <Card className="bg-gradient-to-br from-skillGreen/10 to-skillTeal/10 border-2 border-skillGreen/20 hover:scale-105 transition-all duration-300 shadow-xl">
                 <CardContent className="p-8">
                   <div className="text-center mb-6">
-                    <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-lg">
+                    <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-lg flex items-center justify-center shadow-lg p-2">
                       <img 
                         src="/lovable-uploads/4da1fd42-a1f6-4235-a1f9-7fcc2e1e30f7.png" 
                         alt="HKMU Logo"
-                        className="w-14 h-14 object-contain"
+                        className="w-full h-full object-contain"
                       />
                     </div>
                   </div>

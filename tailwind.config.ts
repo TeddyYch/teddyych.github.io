@@ -23,6 +23,7 @@ export default {
 				display: ["Playfair Display", "serif"],
 				orbitron: ["Orbitron", "monospace"],
 				poppins: ["Poppins", "sans-serif"],
+				crimson: ["Crimson Text", "serif"],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
