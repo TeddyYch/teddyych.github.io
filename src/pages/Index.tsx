@@ -60,7 +60,7 @@ const Index = () => {
         <section className="relative overflow-hidden">
           <div className="container mx-auto px-4 pt-16 pb-20">
             <div className="rounded-2xl border p-10 md:p-16 bg-gradient-to-br from-skillBlue/10 via-background to-skillPurple/10">
-              <h1 className="font-serif text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-2">
+              <h1 className="font-crimson text-4xl md:text-5xl font-bold tracking-wide text-foreground mb-2">
                 Teddy Yiu
               </h1>
               <div className="text-2xl md:text-3xl font-orbitron bg-gradient-to-r from-skillBlue to-skillPurple bg-clip-text text-transparent">
@@ -180,11 +180,6 @@ const Index = () => {
                 items={["Zapier","n8n","Make"]}
               />
               <SkillCard
-                title="Workflow & Process Automation"
-                tone="orange"
-                items={["n8n AI Agent Workflows","HTTP Content Fetching","Zapier HR Requisition System","Multi-step Process Design"]}
-              />
-              <SkillCard
                 title="Tools & OS — Development Tools"
                 tone="orange"
                 items={["Git","GitHub","Android Studio","Linux","VSCode","MySQL","MongoDB","Firebase","Jupyter"]}
@@ -204,55 +199,109 @@ const Index = () => {
         </section>
 
         {/* Automation Workflows */}
-        <section id="automation" className="py-16 bg-muted/30">
+        <section id="automation" className="py-20 bg-muted/30">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-8 font-orbitron bg-gradient-to-r from-skillTeal to-skillBlue bg-clip-text text-transparent">Automation Workflows</h2>
-            <p className="text-muted-foreground mb-12 max-w-2xl">
-              I design and build sophisticated automation workflows using n8n and Zapier to streamline business processes and enhance productivity.
+            <h2 className="text-3xl md:text-4xl font-orbitron font-bold text-center mb-4 bg-gradient-to-r from-skillTeal to-skillBlue bg-clip-text text-transparent">
+              Automation Workflows
+            </h2>
+            <p className="text-center text-muted-foreground mb-12 max-w-3xl mx-auto text-lg">
+              I design and build sophisticated automation workflows using cutting-edge tools like n8n and Zapier to streamline complex business processes, reduce manual work, and enhance organizational productivity through intelligent automation.
             </p>
             
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
               {/* n8n AI Agent Workflow */}
-              <div className="bg-gradient-to-br from-skillTeal/10 to-skillBlue/10 border-2 border-skillTeal/20 rounded-xl p-6 hover:scale-105 transition-all duration-300 shadow-xl">
-                <h3 className="text-xl font-bold mb-4 font-poppins text-skillTeal">n8n AI Agent Content Fetcher</h3>
-                <div className="mb-4 rounded-lg overflow-hidden border">
+              <div className="bg-gradient-to-br from-skillTeal/10 via-background to-skillBlue/10 border-2 border-skillTeal/30 rounded-2xl p-8 hover:scale-[1.02] transition-all duration-300 shadow-2xl">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-r from-skillTeal to-skillBlue rounded-xl flex items-center justify-center shadow-lg">
+                    <span className="text-white font-bold text-lg">n8n</span>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold font-poppins text-skillTeal">AI Agent Content Fetcher</h3>
+                    <p className="text-sm text-skillBlue font-medium">Intelligent Web Processing System</p>
+                  </div>
+                </div>
+                
+                <div className="mb-6 rounded-xl overflow-hidden border-2 border-skillTeal/20 shadow-lg">
                   <img 
                     src="/lovable-uploads/f69d2479-da2c-4ecb-871f-60b201713835.png" 
                     alt="n8n AI Agent workflow for fetching and processing web content"
                     className="w-full h-auto object-contain"
                   />
                 </div>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Built an AI Agent capable of fetching random pages with intelligent content extraction. 
-                  Features multi-step processing: HTTP requests, HTML body extraction, tag removal, 
-                  URL cleanup, and Markdown conversion with configurable length limits.
+                
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  Built an advanced AI Agent capable of fetching random web pages with intelligent content extraction. 
+                  Features sophisticated multi-step processing including HTTP requests, HTML body extraction, 
+                  unnecessary tag removal, external URL cleanup, and Markdown conversion with configurable length limits for optimal performance.
                 </p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <span className="px-3 py-1 text-xs bg-skillTeal/20 text-skillTeal rounded-full">n8n</span>
-                  <span className="px-3 py-1 text-xs bg-skillBlue/20 text-skillBlue rounded-full">AI Agent</span>
-                  <span className="px-3 py-1 text-xs bg-skillPurple/20 text-skillPurple rounded-full">HTTP Processing</span>
+                
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 bg-skillTeal rounded-full"></div>
+                    <span className="text-sm font-medium">HTTP Request Processing & Content Extraction</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 bg-skillBlue rounded-full"></div>
+                    <span className="text-sm font-medium">HTML to Markdown Conversion Engine</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 bg-skillPurple rounded-full"></div>
+                    <span className="text-sm font-medium">Configurable Content Length Management</span>
+                  </div>
+                </div>
+                
+                <div className="flex flex-wrap gap-3">
+                  <span className="px-4 py-2 text-sm bg-skillTeal/20 text-skillTeal rounded-full font-medium border border-skillTeal/30">n8n Workflows</span>
+                  <span className="px-4 py-2 text-sm bg-skillBlue/20 text-skillBlue rounded-full font-medium border border-skillBlue/30">AI Agent Design</span>
+                  <span className="px-4 py-2 text-sm bg-skillPurple/20 text-skillPurple rounded-full font-medium border border-skillPurple/30">HTTP Processing</span>
                 </div>
               </div>
 
               {/* Zapier HR Requisition System */}
-              <div className="bg-gradient-to-br from-skillOrange/10 to-skillRed/10 border-2 border-skillOrange/20 rounded-xl p-6 hover:scale-105 transition-all duration-300 shadow-xl">
-                <h3 className="text-xl font-bold mb-4 font-poppins text-skillOrange">Zapier HR Requisition System</h3>
-                <div className="mb-4 rounded-lg overflow-hidden border">
+              <div className="bg-gradient-to-br from-skillOrange/10 via-background to-skillRed/10 border-2 border-skillOrange/30 rounded-2xl p-8 hover:scale-[1.02] transition-all duration-300 shadow-2xl">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-r from-skillOrange to-skillRed rounded-xl flex items-center justify-center shadow-lg">
+                    <span className="text-white font-bold text-sm">ZAP</span>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold font-poppins text-skillOrange">HR Requisition System</h3>
+                    <p className="text-sm text-skillRed font-medium">Complete Recruitment Automation</p>
+                  </div>
+                </div>
+                
+                <div className="mb-6 rounded-xl overflow-hidden border-2 border-skillOrange/20 shadow-lg">
                   <img 
                     src="/lovable-uploads/d9af498a-a1ca-446e-aba6-d148671b363e.png" 
                     alt="Zapier HR requisition and staff shortlisting automation workflow"
                     className="w-full h-auto object-contain"
                   />
                 </div>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Developed a comprehensive HR requisition and shortlisting system with automated 
-                  workflow branching, data analysis, email generation, and multi-path processing 
-                  for manager and general grade positions.
+                
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  Developed a comprehensive HR requisition and shortlisting system featuring intelligent workflow branching, 
+                  automated candidate data analysis, dynamic email generation, and sophisticated multi-path processing 
+                  specifically designed for different position types including manager and general grade roles.
                 </p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <span className="px-3 py-1 text-xs bg-skillOrange/20 text-skillOrange rounded-full">Zapier</span>
-                  <span className="px-3 py-1 text-xs bg-skillRed/20 text-skillRed rounded-full">HR Automation</span>
-                  <span className="px-3 py-1 text-xs bg-skillGreen/20 text-skillGreen rounded-full">Process Design</span>
+                
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 bg-skillOrange rounded-full"></div>
+                    <span className="text-sm font-medium">Automated Application Processing & Routing</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 bg-skillRed rounded-full"></div>
+                    <span className="text-sm font-medium">Intelligent Candidate Shortlisting Logic</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 bg-skillGreen rounded-full"></div>
+                    <span className="text-sm font-medium">Multi-platform Integration & Notifications</span>
+                  </div>
+                </div>
+                
+                <div className="flex flex-wrap gap-3">
+                  <span className="px-4 py-2 text-sm bg-skillOrange/20 text-skillOrange rounded-full font-medium border border-skillOrange/30">Zapier Automation</span>
+                  <span className="px-4 py-2 text-sm bg-skillRed/20 text-skillRed rounded-full font-medium border border-skillRed/30">HR Systems</span>
+                  <span className="px-4 py-2 text-sm bg-skillGreen/20 text-skillGreen rounded-full font-medium border border-skillGreen/30">Process Design</span>
                 </div>
               </div>
             </div>
