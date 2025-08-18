@@ -71,7 +71,7 @@ const Index = () => {
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Button variant="hero" asChild>
-                  <a href="#projects">View Highlights</a>
+                  <a href="#automation">View Highlights</a>
                 </Button>
                 <Button variant="outline" asChild>
                   <a href="mailto:yiuchunh@gmail.com">Contact</a>
