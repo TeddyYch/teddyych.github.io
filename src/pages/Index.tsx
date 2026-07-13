@@ -1,404 +1,221 @@
 import { useEffect } from "react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Timeline from "@/components/Timeline";
+import FeaturedProjects from "@/components/FeaturedProjects";
 import CertificateGallery from "@/components/CertificateGallery";
+import CyberBackground from "@/components/CyberBackground";
+import HeroSystemVisual from "@/components/HeroSystemVisual";
+import AutomationWorkflow from "@/components/AutomationWorkflow";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SkillCard } from "@/components/SkillCard";
-import CodeDefenseGame from "@/components/CodeDefenseGame";
-import CyberBackground from "@/components/CyberBackground";
-import hkustLogo from "@/assets/logos/hkust-logo.png";
-import iveLogo from "@/assets/logos/ive-logo.png";
-import hkmuLogo from "@/assets/logos/hkmu-logo.png";
+import { portfolioLinks, siteUrl } from "@/config/portfolio";
+
+const pageTitle = "Teddy Yiu — Software Developer & Security Automation Builder";
+const pageDescription = "Portfolio of Teddy Yiu, a software developer with hands-on experience in web development, workflow automation, and security operations.";
 
 const Index = () => {
   useEffect(() => {
-    // Dynamic canonical
-    const href = window.location.href;
-    let link = document.querySelector("link[rel='canonical']") as HTMLLinkElement | null;
-    if (!link) {
-      link = document.createElement("link");
-      link.setAttribute("rel", "canonical");
-      document.head.appendChild(link);
+    document.title = pageTitle;
+
+    let canonical = document.querySelector("link[rel='canonical']") as HTMLLinkElement | null;
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
     }
-    link.setAttribute("href", href);
+    canonical.href = siteUrl;
 
-    document.title = "Teddy Yiu — Full‑Stack Developer";
-
-    // Structured data
     const script = document.createElement("script");
     script.type = "application/ld+json";
+    script.dataset.portfolioSchema = "person";
     script.text = JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Person",
       name: "Teddy Yiu",
+      url: siteUrl,
       email: "mailto:yiuchunh@gmail.com",
-      jobTitle: "Full‑Stack Developer",
-      alumniOf: [
-        { "@type": "CollegeOrUniversity", name: "HKUST" },
-        { "@type": "CollegeOrUniversity", name: "IVE (VTC)" },
-        { "@type": "CollegeOrUniversity", name: "Hong Kong Metropolitan University" }
+      jobTitle: "Software Developer and Security Automation Builder",
+      description: pageDescription,
+      knowsAbout: [
+        "Software development",
+        "Web development",
+        "Workflow automation",
+        "Security operations",
+        "Cloud and security engineering",
       ],
-      worksFor: [
-        { "@type": "Organization", name: "YMCA HK" },
+      alumniOf: [
+        { "@type": "CollegeOrUniversity", name: "Hong Kong University of Science and Technology" },
+        { "@type": "CollegeOrUniversity", name: "IVE (VTC)" },
+        { "@type": "CollegeOrUniversity", name: "Hong Kong Metropolitan University" },
+      ],
+      affiliation: [
+        { "@type": "Organization", name: "HKT" },
+        { "@type": "Organization", name: "YMCA of Hong Kong" },
         { "@type": "Organization", name: "Kinetix Systems Holding Limited" },
         { "@type": "Organization", name: "Ask IT Limited" },
-        { "@type": "Organization", name: "Hoosang, Lyn, Li & Co. Ltd." }
       ],
+      sameAs: [portfolioLinks.github, portfolioLinks.linkedin].filter(Boolean),
     });
     document.head.appendChild(script);
-    return () => { document.head.removeChild(script); };
+
+    return () => {
+      script.remove();
+    };
   }, []);
 
   return (
     <div id="top">
       <Header />
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <CyberBackground />
-        {/* Hero */}
-        <section className="relative overflow-hidden">
-          <div className="container mx-auto px-4 pt-16 pb-20">
-            <div className="rounded-2xl border p-10 md:p-16 bg-gradient-to-br from-skillBlue/10 via-background to-skillPurple/10">
-              <h1 className="font-crimson text-4xl md:text-5xl font-bold tracking-wide text-foreground mb-2">
-                Teddy Yiu
-              </h1>
-              <div className="text-2xl md:text-3xl font-orbitron bg-gradient-to-r from-skillBlue to-skillPurple bg-clip-text text-transparent">
-                Full‑Stack Developer
-              </div>
-              <p className="mt-4 text-muted-foreground max-w-2xl">
-                Building reliable, delightful full‑stack apps with React, TypeScript, and modern backends. Passionate about DX, performance, and AI‑powered features.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Button variant="hero" asChild>
-                  <a href="#automation">View Highlights</a>
-                </Button>
-                <Button variant="outline" asChild>
-                  <a href="mailto:yiuchunh@gmail.com">Contact</a>
-                </Button>
-              </div>
-              <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-muted-foreground">
-                <Card>
-                  <CardContent className="p-4">
-                    <div className="font-medium">React • TypeScript</div>
-                    <div>Frontend Engineering</div>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardContent className="p-4">
-                    <div className="font-medium">AI/ML</div>
-                    <div>TensorFlow • PyTorch</div>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardContent className="p-4">
-                    <div className="font-medium">Automation</div>
-                    <div>Zapier • n8n • Make</div>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardContent className="p-4">
-                    <div className="font-medium">Backend & APIs</div>
-                    <div>Node.js • Express • Supabase</div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        {/* About */}
-        <section id="about" className="py-16">
-          <div className="container mx-auto px-4 grid md:grid-cols-2 gap-8 items-start">
-            <div>
-              <h2 className="text-3xl font-bold font-orbitron bg-gradient-to-r from-skillOrange to-skillRed bg-clip-text text-transparent">About</h2>
-              <p className="mt-4 text-muted-foreground leading-relaxed">
-                I’m Teddy, a developer with an accounting foundation turned engineer — bringing a pragmatic, data‑driven mindset to software. My recent work spans a web‑based AI Fashion Recommendation system (FYP with Kinetix), automation workflows using Zapier/n8n/Make at YMCA HK, and hands‑on testing and Python scripting at Ask IT. I care about clean UX, reliability, and performance.
-              </p>
-              <div className="mt-6">
-                <Button variant="soft" asChild>
-                  <a href="mailto:yiuchunh@gmail.com">Let’s collaborate</a>
-                </Button>
-              </div>
-            </div>
-            <div className="rounded-xl border p-6 bg-muted/30">
-              <dl className="grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <dt className="text-muted-foreground">E-mail</dt>
-                  <dd className="font-medium"><a className="story-link" href="mailto:yiuchunh@gmail.com">yiuchunh@gmail.com</a></dd>
-                </div>
-                <div>
-                  <dt className="text-muted-foreground">Location</dt>
-                  <dd className="font-medium">Hong Kong</dd>
-                </div>
-                <div>
-                  <dt className="text-muted-foreground">Focus</dt>
-                  <dd className="font-medium">Frontend • Backend • AI/ML</dd>
-                </div>
-                <div>
-                  <dt className="text-muted-foreground">Languages</dt>
-                  <dd className="font-medium">Cantonese, English, Putonghua</dd>
-                </div>
-              </dl>
-            </div>
-          </div>
-        </section>
-
-        {/* Skills */}
-        <section id="skills" className="py-16">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-8 font-orbitron bg-gradient-to-r from-skillPurple to-skillTeal bg-clip-text text-transparent">Skills</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <SkillCard
-                title="Programming Languages & Web Fundamentals"
-                tone="blue"
-                items={["Python","Java","C++","C#","TypeScript","JavaScript","HTML","PHP"]}
-              />
-              <SkillCard
-                title="Web & UI"
-                tone="blue"
-                items={["React","Next.js"]}
-              />
-              <SkillCard
-                title="AI/ML Frameworks"
-                tone="purple"
-                items={["PyTorch","TensorFlow","Scikit-learn"]}
-              />
-              <SkillCard
-                title="Data Science"
-                tone="teal"
-                items={["NumPy","Pandas"]}
-              />
-              <SkillCard
-                title="Databases & Query"
-                tone="green"
-                items={["SQL","NoSQL"]}
-              />
-              <SkillCard
-                title="Automation & Platforms"
-                tone="purple"
-                items={["Zapier","n8n","Make"]}
-              />
-              <SkillCard
-                title="Tools & OS — Development Tools"
-                tone="orange"
-                items={["Git","GitHub","Android Studio","Linux","VSCode","MySQL","MongoDB","Firebase","Jupyter"]}
-              />
-              <SkillCard
-                title="Creative Suite"
-                tone="red"
-                items={["Photoshop","InDesign","Illustrator","Premiere Pro","GarageBand"]}
-              />
-              <SkillCard
-                title="Certificates"
-                tone="green"
-                items={["MS-365","MS-AI900","Alibaba ACA Cloud Computing","Oracle AI Foundations Associate","Oracle Data Platform Foundations Associate"]}
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Automation Workflows */}
-        <section id="automation" className="py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-orbitron font-bold text-center mb-4 bg-gradient-to-r from-skillTeal to-skillBlue bg-clip-text text-transparent">
-              Automation Workflows
-            </h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-3xl mx-auto text-lg">
-              I design and build sophisticated automation workflows using cutting-edge tools like n8n and Zapier to streamline complex business processes, reduce manual work, and enhance organizational productivity through intelligent automation.
-            </p>
-            
-            <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
-              {/* n8n AI Agent Workflow */}
-              <div className="bg-gradient-to-br from-skillTeal/10 via-background to-skillBlue/10 border-2 border-skillTeal/30 rounded-2xl p-8 hover:scale-[1.02] transition-all duration-300 shadow-2xl">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-skillTeal to-skillBlue rounded-xl flex items-center justify-center shadow-lg">
-                    <span className="text-white font-bold text-lg">n8n</span>
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold font-poppins text-skillTeal">AI Agent Content Fetcher</h3>
-                    <p className="text-sm text-skillBlue font-medium">Intelligent Web Processing System</p>
-                  </div>
-                </div>
-                
-                <div className="mb-6 rounded-xl overflow-hidden border-2 border-skillTeal/20 shadow-lg">
-                  <img 
-                    src="/lovable-uploads/f69d2479-da2c-4ecb-871f-60b201713835.png" 
-                    alt="n8n AI Agent workflow for fetching and processing web content"
-                    className="w-full h-auto object-contain"
-                  />
-                </div>
-                
-                <p className="text-muted-foreground leading-relaxed mb-6">
-                  Built an advanced AI Agent capable of fetching random web pages with intelligent content extraction. 
-                  Features sophisticated multi-step processing including HTTP requests, HTML body extraction, 
-                  unnecessary tag removal, external URL cleanup, and Markdown conversion with configurable length limits for optimal performance.
+        <section aria-labelledby="hero-title" className="hero-section section-grid relative overflow-hidden border-b">
+          <div className="section-glow section-glow--hero" aria-hidden="true" />
+          <div className="container relative mx-auto px-4 py-16 sm:py-20 lg:py-28">
+            <div className="grid min-w-0 items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] xl:gap-16">
+              <div className="min-w-0">
+                <p className="section-kicker text-skillBlue">Teddy Yiu · Hong Kong</p>
+                <h1 id="hero-title" className="mt-4 max-w-4xl text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+                  Software Developer &amp; Security Automation Builder
+                </h1>
+                <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">
+                  I build web products and practical automation, informed by hands-on security operations experience.
                 </p>
-                
-                <div className="space-y-3 mb-6">
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-skillTeal rounded-full"></div>
-                    <span className="text-sm font-medium">HTTP Request Processing & Content Extraction</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-skillBlue rounded-full"></div>
-                    <span className="text-sm font-medium">HTML to Markdown Conversion Engine</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-skillPurple rounded-full"></div>
-                    <span className="text-sm font-medium">Configurable Content Length Management</span>
-                  </div>
-                </div>
-                
-                <div className="flex flex-wrap gap-3">
-                  <span className="px-4 py-2 text-sm bg-skillTeal/20 text-skillTeal rounded-full font-medium border border-skillTeal/30">n8n Workflows</span>
-                  <span className="px-4 py-2 text-sm bg-skillBlue/20 text-skillBlue rounded-full font-medium border border-skillBlue/30">AI Agent Design</span>
-                  <span className="px-4 py-2 text-sm bg-skillPurple/20 text-skillPurple rounded-full font-medium border border-skillPurple/30">HTTP Processing</span>
+
+                <p className="availability-line">
+                  <span aria-hidden="true" /> Available for full-time opportunities · All HKUST taught coursework completed · Final Year Project remaining
+                </p>
+
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Button asChild variant="hero"><a href="#work">View Projects</a></Button>
+                  <Button asChild variant="outline"><a href="#experience">View Experience</a></Button>
+                  <Button asChild variant="ghost">
+                    <a href={portfolioLinks.github} target="_blank" rel="noreferrer"><Github aria-hidden="true" /> GitHub</a>
+                  </Button>
+                  <Button asChild variant="ghost">
+                    <a href={portfolioLinks.linkedin} target="_blank" rel="noreferrer"><Linkedin aria-hidden="true" /> LinkedIn</a>
+                  </Button>
                 </div>
               </div>
 
-              {/* Zapier HR Requisition System */}
-              <div className="bg-gradient-to-br from-skillOrange/10 via-background to-skillRed/10 border-2 border-skillOrange/30 rounded-2xl p-8 hover:scale-[1.02] transition-all duration-300 shadow-2xl">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-skillOrange to-skillRed rounded-xl flex items-center justify-center shadow-lg">
-                    <span className="text-white font-bold text-sm">ZAP</span>
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold font-poppins text-skillOrange">HR Requisition System</h3>
-                    <p className="text-sm text-skillRed font-medium">Complete Recruitment Automation</p>
-                  </div>
-                </div>
-                
-                <div className="mb-6 rounded-xl overflow-hidden border-2 border-skillOrange/20 shadow-lg">
-                  <img 
-                    src="/lovable-uploads/d9af498a-a1ca-446e-aba6-d148671b363e.png" 
-                    alt="Zapier HR requisition and staff shortlisting automation workflow"
-                    className="w-full h-auto object-contain"
-                  />
-                </div>
-                
-                <p className="text-muted-foreground leading-relaxed mb-6">
-                  Developed a comprehensive HR requisition and shortlisting system featuring intelligent workflow branching, 
-                  automated candidate data analysis, dynamic email generation, and sophisticated multi-path processing 
-                  specifically designed for different position types including manager and general grade roles.
-                </p>
-                
-                <div className="space-y-3 mb-6">
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-skillOrange rounded-full"></div>
-                    <span className="text-sm font-medium">Automated Application Processing & Routing</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-skillRed rounded-full"></div>
-                    <span className="text-sm font-medium">Intelligent Candidate Shortlisting Logic</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-skillGreen rounded-full"></div>
-                    <span className="text-sm font-medium">Multi-platform Integration & Notifications</span>
-                  </div>
-                </div>
-                
-                <div className="flex flex-wrap gap-3">
-                  <span className="px-4 py-2 text-sm bg-skillOrange/20 text-skillOrange rounded-full font-medium border border-skillOrange/30">Zapier Automation</span>
-                  <span className="px-4 py-2 text-sm bg-skillRed/20 text-skillRed rounded-full font-medium border border-skillRed/30">HR Systems</span>
-                  <span className="px-4 py-2 text-sm bg-skillGreen/20 text-skillGreen rounded-full font-medium border border-skillGreen/30">Process Design</span>
-                </div>
-              </div>
+              <HeroSystemVisual />
             </div>
           </div>
         </section>
 
-        {/* Game */}
-        <CodeDefenseGame />
+        <FeaturedProjects />
 
-        {/* Experience */}
-        <section id="experience" className="py-16">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-12 font-orbitron bg-gradient-to-r from-skillGreen to-skillTeal bg-clip-text text-transparent">Professional Experience</h2>
+        <section id="experience" aria-labelledby="experience-title" className="section-grid relative scroll-mt-20 overflow-hidden border-y bg-muted/20 py-20 sm:py-24">
+          <div className="section-glow section-glow--purple" aria-hidden="true" />
+          <div className="container relative mx-auto px-4">
+            <div className="mb-10 max-w-3xl">
+              <p className="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-skillBlue">Experience</p>
+              <h2 id="experience-title" className="text-3xl font-bold tracking-tight sm:text-4xl">Professional Experience</h2>
+              <p className="mt-3 text-muted-foreground">Software delivery, business-process automation, and frontline security operations.</p>
+            </div>
             <Timeline />
-          </div>
-        </section>
-
-        {/* Education */}
-        <section id="education" className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-12 font-orbitron bg-gradient-to-r from-skillPurple to-skillBlue bg-clip-text text-transparent">Education</h2>
-            <div className="grid gap-8 md:grid-cols-3">
-              <Card className="bg-gradient-to-br from-skillBlue/10 to-skillPurple/10 border-2 border-skillBlue/20 hover:scale-105 transition-all duration-300 shadow-xl">
-                <CardContent className="p-8">
-                  <div className="text-center mb-6">
-                    <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-lg flex items-center justify-center shadow-lg p-2">
-                      <img 
-                        src="/lovable-uploads/2df912e5-a1b4-4fb8-b336-4246e3ec034c.png" 
-                        alt="HKUST Logo"
-                        className="w-full h-full object-contain"
-                      />
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <h3 className="text-3xl font-bold mb-3 font-poppins text-skillBlue">HKUST</h3>
-                    <p className="text-xl font-semibold mb-3 text-foreground">BEng in Computer Science</p>
-                    <p className="text-lg text-muted-foreground font-medium">2024 – Present</p>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="bg-gradient-to-br from-skillOrange/10 to-skillRed/10 border-2 border-skillOrange/20 hover:scale-105 transition-all duration-300 shadow-xl">
-                <CardContent className="p-8">
-                  <div className="text-center mb-6">
-                    <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-lg flex items-center justify-center shadow-lg p-2">
-                      <img 
-                        src="/lovable-uploads/03d9e0dd-9eba-46a0-b6c9-0b2c7850b526.png" 
-                        alt="IVE Logo"
-                        className="w-full h-full object-contain"
-                      />
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <h3 className="text-3xl font-bold mb-3 font-poppins text-skillOrange">IVE (VTC)</h3>
-                    <p className="text-xl font-semibold mb-3 text-foreground">Higher Diploma in Software Engineering</p>
-                    <p className="text-lg text-muted-foreground font-medium">2022 – 2024</p>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="bg-gradient-to-br from-skillGreen/10 to-skillTeal/10 border-2 border-skillGreen/20 hover:scale-105 transition-all duration-300 shadow-xl">
-                <CardContent className="p-8">
-                  <div className="text-center mb-6">
-                    <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-lg flex items-center justify-center shadow-lg p-2">
-                      <img 
-                        src="/lovable-uploads/4da1fd42-a1f6-4235-a1f9-7fcc2e1e30f7.png" 
-                        alt="HKMU Logo"
-                        className="w-full h-full object-contain"
-                      />
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <h3 className="text-3xl font-bold mb-3 font-poppins text-skillGreen">HKMU</h3>
-                    <p className="text-xl font-semibold mb-3 text-foreground">BBA in Accounting</p>
-                    <p className="text-lg text-muted-foreground font-medium">2013 – 2016</p>
-                  </div>
-                </CardContent>
-              </Card>
+            <div className="mt-12 sm:mt-16">
+              <AutomationWorkflow />
             </div>
           </div>
         </section>
 
-        {/* Certificates */}
-        <section id="certs" className="py-16">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-8 font-orbitron bg-gradient-to-r from-skillRed to-skillOrange bg-clip-text text-transparent">Professional Certifications</h2>
-            <CertificateGallery />
+        <section id="skills" aria-labelledby="skills-title" className="relative scroll-mt-20 overflow-hidden py-20 sm:py-24">
+          <div className="section-glow section-glow--purple" aria-hidden="true" />
+          <div className="container relative mx-auto px-4">
+            <div className="mb-10 max-w-3xl">
+              <p className="section-kicker text-skillPurple">Capabilities</p>
+              <h2 id="skills-title" className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Technical Skills</h2>
+              <p className="mt-3 text-muted-foreground">Tools grouped by the work they support: software delivery, data, security operations, and automation.</p>
+            </div>
+            <div className="skills-grid">
+              <SkillCard title="Programming Languages and Web Fundamentals" tone="blue" items={["Python", "Java", "C++", "TypeScript", "JavaScript", "HTML", "CSS", "SQL"]} />
+              <SkillCard title="Web and UI" tone="teal" items={["React", "Vite", "Tailwind CSS"]} />
+              <SkillCard title="Backend and Data" tone="green" items={["REST APIs", "PostgreSQL", "MySQL", "MongoDB", "SQLite"]} />
+              <SkillCard
+                title="Security Operations"
+                description="Investigation tooling and operational practices used during SOC work."
+                tone="orange"
+                className="lg:col-span-2"
+                items={["SIEM alert triage", "Endpoint investigation", "Splunk", "Elastic", "CrowdStrike Falcon", "Cortex XDR", "Carbon Black Cloud", "Darktrace"]}
+              />
+              <SkillCard title="Automation and Platforms" tone="purple" items={["Zapier", "n8n", "Make", "Git", "GitHub", "Vercel"]} />
+              <SkillCard title="Additional Technical Tools" tone="blue" emphasis="secondary" items={["Linux", "Android Studio", "Firebase", "Jupyter"]} />
+              <SkillCard title="Creative Suite" description="Supporting visual and media tools." tone="red" emphasis="secondary" className="lg:col-span-2" items={["Photoshop", "InDesign", "Illustrator", "Premiere Pro", "GarageBand"]} />
+            </div>
           </div>
         </section>
 
-        {/* Contact */}
-        <section id="contact" className="py-16">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold font-orbitron bg-gradient-to-r from-skillTeal to-skillGreen bg-clip-text text-transparent">Get in touch</h2>
-            <p className="text-muted-foreground mt-2">Open to internships and junior developer roles.</p>
-            <div className="mt-6 flex justify-center">
-              <Button variant="hero" asChild>
-                <a href="mailto:yiuchunh@gmail.com">Email: yiuchunh@gmail.com</a>
-              </Button>
+        <section id="education" aria-labelledby="education-title" className="relative scroll-mt-20 overflow-hidden border-y bg-muted/20 py-20 sm:py-24">
+          <div className="section-glow section-glow--green" aria-hidden="true" />
+          <div className="container relative mx-auto px-4">
+            <div className="mb-10 max-w-3xl">
+              <p className="section-kicker text-skillGreen">Education</p>
+              <h2 id="education-title" className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Education and Certifications</h2>
+            </div>
+
+            <div className="education-grid">
+              <Card className="education-feature">
+                <CardContent className="relative flex h-full flex-col p-6 sm:p-8 lg:p-10">
+                  <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
+                    <div className="education-logo education-logo--featured">
+                      <img src="/lovable-uploads/2df912e5-a1b4-4fb8-b336-4246e3ec034c.png" alt="Hong Kong University of Science and Technology logo" width="264" height="224" />
+                    </div>
+                    <div>
+                      <p className="section-kicker text-skillBlue">Primary degree</p>
+                      <h3 className="mt-3 text-2xl font-bold sm:text-3xl">Hong Kong University of Science and Technology</h3>
+                      <p className="mt-3 text-lg font-semibold">Bachelor of Engineering in Computer Science</p>
+                      <p className="mt-2 text-muted-foreground">2024 – Expected 2027</p>
+                    </div>
+                  </div>
+                  <p className="mt-auto border-t pt-6 text-sm font-medium leading-6 text-foreground sm:text-base">All taught coursework completed; Final Year Project remaining.</p>
+                </CardContent>
+              </Card>
+
+              <div className="grid gap-4">
+                <Card className="education-support">
+                  <CardContent className="flex items-start gap-4 p-5 sm:p-6">
+                    <div className="education-logo"><img src="/lovable-uploads/03d9e0dd-9eba-46a0-b6c9-0b2c7850b526.png" alt="Institute of Vocational Education logo" width="568" height="455" /></div>
+                    <div className="min-w-0"><h3 className="font-bold">Institute of Vocational Education</h3><p className="mt-1 text-sm font-medium">Higher Diploma in Software Engineering</p><p className="mt-2 text-sm text-muted-foreground">2022 – 2024</p></div>
+                  </CardContent>
+                </Card>
+                <Card className="education-support">
+                  <CardContent className="flex items-start gap-4 p-5 sm:p-6">
+                    <div className="education-logo"><img src="/lovable-uploads/4da1fd42-a1f6-4235-a1f9-7fcc2e1e30f7.png" alt="Hong Kong Metropolitan University logo" width="678" height="645" /></div>
+                    <div className="min-w-0"><h3 className="font-bold">Hong Kong Metropolitan University</h3><p className="mt-1 text-sm font-medium">Bachelor of Business Administration in Accounting</p><p className="mt-2 text-sm text-muted-foreground">2013 – 2016</p></div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+
+            <div className="mt-16 border-t pt-12">
+              <div className="mb-8 max-w-3xl">
+                <p className="section-kicker text-skillOrange">Credentials</p>
+                <h3 className="mt-3 text-2xl font-bold sm:text-3xl">Professional Certifications</h3>
+                <p className="mt-3 text-muted-foreground">Full credential images with issuer and issue date for direct verification.</p>
+              </div>
+              <CertificateGallery />
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" aria-labelledby="contact-title" className="relative scroll-mt-20 overflow-hidden py-20 sm:py-24">
+          <div className="section-glow section-glow--contact" aria-hidden="true" />
+          <div className="container relative mx-auto px-4">
+            <div className="contact-panel">
+              <div className="max-w-2xl">
+                <p className="section-kicker text-skillTeal">Contact</p>
+                <h2 id="contact-title" className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Available for full-time opportunities</h2>
+                <p className="mt-4 leading-7 text-muted-foreground">Software development, security automation, and cloud or security engineering roles in Hong Kong.</p>
+              </div>
+              <div className="flex flex-wrap gap-3 lg:justify-end">
+                <Button variant="hero" asChild><a href="mailto:yiuchunh@gmail.com"><Mail aria-hidden="true" /> Email</a></Button>
+                <Button variant="outline" asChild><a href={portfolioLinks.github} target="_blank" rel="noreferrer"><Github aria-hidden="true" /> GitHub</a></Button>
+                <Button variant="outline" asChild><a href={portfolioLinks.linkedin} target="_blank" rel="noreferrer"><Linkedin aria-hidden="true" /> LinkedIn</a></Button>
+              </div>
             </div>
           </div>
         </section>

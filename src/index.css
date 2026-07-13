@@ -36,7 +36,7 @@ All colors MUST be HSL.
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -62,7 +62,7 @@ All colors MUST be HSL.
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
+    --card: 222 48% 7%;
     --card-foreground: 210 40% 98%;
 
     --popover: 222.2 84% 4.9%;
@@ -103,8 +103,408 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply min-w-[320px] bg-background text-foreground font-sans antialiased;
+    overflow-x: hidden;
   }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  ::selection {
+    background: hsl(var(--skill-blue) / 0.2);
+  }
+}
+
+@layer components {
+  .section-kicker {
+    @apply text-xs font-bold uppercase tracking-[0.2em];
+  }
+
+  .section-grid {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.32) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.32) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .section-glow {
+    @apply pointer-events-none absolute rounded-full blur-3xl;
+    width: min(38rem, 72vw);
+    height: min(38rem, 72vw);
+    opacity: 0.13;
+  }
+
+  .section-glow--hero {
+    right: -12rem;
+    top: -15rem;
+    background: hsl(var(--skill-blue));
+  }
+
+  .section-glow--blue {
+    left: -18rem;
+    top: 18rem;
+    background: hsl(var(--skill-teal));
+  }
+
+  .section-glow--purple {
+    right: -18rem;
+    top: 8rem;
+    background: hsl(var(--skill-purple));
+  }
+
+  .section-glow--green {
+    left: -16rem;
+    top: 12rem;
+    background: hsl(var(--skill-green));
+  }
+
+  .section-glow--contact {
+    right: -12rem;
+    top: -12rem;
+    background: hsl(var(--skill-blue));
+  }
+
+  .availability-line {
+    @apply mt-6 flex max-w-2xl items-start gap-2.5 text-xs font-medium leading-5 text-muted-foreground sm:text-sm;
+  }
+
+  .availability-line > span {
+    @apply mt-1.5 size-2 shrink-0 rounded-full bg-skillGreen shadow-[0_0_12px_hsl(var(--skill-green)/0.65)];
+  }
+
+  .system-map {
+    @apply relative min-w-0 overflow-hidden rounded-2xl border border-skillBlue/20 bg-card/80 p-4 shadow-2xl shadow-skillBlue/5 backdrop-blur sm:p-6;
+  }
+
+  .system-map::before {
+    content: "";
+    @apply pointer-events-none absolute inset-x-0 top-0 h-px;
+    background: linear-gradient(90deg, transparent, hsl(var(--skill-blue) / 0.8), hsl(var(--skill-teal) / 0.55), transparent);
+  }
+
+  .system-map__header {
+    @apply flex flex-col gap-3 border-b pb-5 sm:flex-row sm:items-start sm:justify-between;
+  }
+
+  .system-map__status {
+    @apply inline-flex w-fit items-center gap-2 rounded-full border bg-background/60 px-2.5 py-1 text-[0.68rem] font-semibold text-muted-foreground;
+  }
+
+  .system-map__status > span {
+    @apply size-1.5 rounded-full bg-skillGreen;
+    animation: data-pulse 2.4s ease-in-out infinite;
+  }
+
+  .system-map__tracks {
+    @apply mt-5 space-y-3;
+  }
+
+  .system-track {
+    @apply relative overflow-hidden rounded-xl border bg-background/45 p-3.5;
+  }
+
+  .system-track::after {
+    content: "";
+    @apply absolute inset-y-0 left-0 w-0.5;
+    background: var(--track-color);
+  }
+
+  .system-track--blue { --track-color: hsl(var(--skill-blue)); }
+  .system-track--purple { --track-color: hsl(var(--skill-purple)); }
+  .system-track--orange { --track-color: hsl(var(--skill-orange)); }
+
+  .system-track h3 {
+    color: var(--track-color);
+    @apply text-[0.68rem] font-bold uppercase tracking-[0.16em];
+  }
+
+  .system-track ol {
+    @apply mt-3 grid min-w-0 grid-cols-3 gap-3;
+  }
+
+  .system-track li {
+    @apply relative min-w-0;
+  }
+
+  .system-track li > span:first-child {
+    @apply flex min-h-10 items-center justify-center rounded-lg border bg-card/80 px-1.5 text-center text-[0.68rem] font-semibold leading-4 sm:text-xs;
+  }
+
+  .system-track__connector {
+    @apply pointer-events-none absolute left-full top-1/2 h-px w-3 -translate-y-1/2;
+    background: var(--track-color);
+    opacity: 0.55;
+  }
+
+  .system-track__connector::after {
+    content: "";
+    @apply absolute right-0 top-1/2 size-1 -translate-y-1/2 rounded-full;
+    background: var(--track-color);
+    animation: data-pulse 2.8s ease-in-out infinite;
+  }
+
+  .project-shell {
+    @apply relative overflow-hidden rounded-2xl border border-skillBlue/20 bg-card/80 shadow-2xl shadow-skillBlue/5 backdrop-blur;
+  }
+
+  .project-shell::before {
+    content: "";
+    @apply pointer-events-none absolute inset-x-0 top-0 h-px;
+    background: linear-gradient(90deg, transparent, hsl(var(--skill-blue) / 0.8), hsl(var(--skill-purple) / 0.6), transparent);
+  }
+
+  .status-chip {
+    @apply inline-flex w-fit items-center rounded-full border px-3 py-1.5 text-xs font-bold uppercase tracking-[0.12em];
+  }
+
+  .status-chip--orange {
+    @apply border-skillOrange/35 bg-skillOrange/10 text-skillOrange;
+  }
+
+  .project-detail__label {
+    @apply text-xs font-bold uppercase tracking-[0.16em] text-skillBlue;
+  }
+
+  .project-detail > p:last-child {
+    @apply mt-2 text-sm leading-6 text-muted-foreground;
+  }
+
+  .surface-chip {
+    @apply inline-flex items-center rounded-full border bg-background/60 px-3 py-1.5 text-xs font-medium text-foreground;
+  }
+
+  .browser-frame {
+    @apply overflow-hidden rounded-xl border border-skillBlue/25 bg-background shadow-xl shadow-black/10;
+  }
+
+  .browser-frame__bar {
+    @apply flex h-9 items-center gap-1.5 border-b bg-muted/60 px-3;
+  }
+
+  .browser-frame__bar > span:not(.browser-frame__address) {
+    @apply size-2.5 rounded-full bg-muted-foreground/25;
+  }
+
+  .browser-frame__address {
+    @apply ml-2 min-w-0 flex-1 truncate rounded bg-background/80 px-3 py-1 text-center text-[0.6rem] font-medium text-muted-foreground;
+  }
+
+  .browser-frame img {
+    @apply block h-auto w-full object-contain;
+  }
+
+  .browser-frame figcaption {
+    @apply border-t px-4 py-2.5 text-xs font-medium text-muted-foreground;
+  }
+
+  .project-gallery {
+    @apply grid gap-5 border-t bg-muted/20 p-5 sm:p-8 lg:grid-cols-[1.16fr_0.84fr] lg:p-10;
+  }
+
+  .project-shot {
+    @apply overflow-hidden rounded-xl border bg-background/70 shadow-lg shadow-black/5 transition-[border-color,box-shadow,transform] duration-300;
+  }
+
+  .project-shot--report { @apply border-skillTeal/20; }
+  .project-shot--oracle { @apply border-skillPurple/25 lg:mt-10; }
+
+  .project-shot__image {
+    @apply overflow-hidden border-b bg-black/5;
+    aspect-ratio: 1900 / 904;
+  }
+
+  .project-shot__image img {
+    @apply block h-full w-full object-contain;
+  }
+
+  .project-shot figcaption {
+    @apply flex flex-col gap-1 px-4 py-3;
+  }
+
+  .project-shot figcaption span { @apply text-sm font-semibold; }
+  .project-shot figcaption small { @apply text-xs text-muted-foreground; }
+
+  .evidence-grid {
+    @apply grid gap-4 border-t p-5 sm:p-8 md:grid-cols-3 lg:p-10;
+  }
+
+  .evidence-card {
+    @apply relative overflow-hidden rounded-xl border bg-background/55 p-5;
+  }
+
+  .evidence-card::before {
+    content: "";
+    @apply absolute inset-x-0 top-0 h-0.5;
+    background: var(--evidence-color);
+  }
+
+  .evidence-card--blue { --evidence-color: hsl(var(--skill-blue)); }
+  .evidence-card--green { --evidence-color: hsl(var(--skill-green)); }
+  .evidence-card--purple { --evidence-color: hsl(var(--skill-purple)); }
+  .evidence-card h3 { @apply font-semibold; color: var(--evidence-color); }
+  .evidence-card p { @apply mt-2 text-sm leading-6 text-muted-foreground; }
+
+  .experience-card {
+    @apply relative overflow-hidden rounded-2xl border bg-card/85 p-5 shadow-lg shadow-black/[0.03] backdrop-blur transition-[border-color,box-shadow,transform] duration-300 sm:p-7;
+  }
+
+  .experience-card::before {
+    content: "";
+    @apply absolute inset-y-5 left-0 w-0.5 rounded-r-full;
+    background: var(--experience-color);
+  }
+
+  .experience-card--blue { --experience-color: hsl(var(--skill-blue)); }
+  .experience-card--purple { --experience-color: hsl(var(--skill-purple)); }
+  .experience-card--orange { --experience-color: hsl(var(--skill-orange)); }
+  .experience-card--teal { --experience-color: hsl(var(--skill-teal)); }
+
+  .experience-card--prominent {
+    @apply border-skillBlue/35 shadow-xl shadow-skillBlue/[0.06];
+    background-image: linear-gradient(120deg, hsl(var(--skill-blue) / 0.08), transparent 45%);
+  }
+
+  .workflow-panel {
+    @apply overflow-hidden rounded-2xl border border-skillPurple/20 bg-card/85 p-5 shadow-xl shadow-skillPurple/5 sm:p-8;
+  }
+
+  .workflow-steps {
+    @apply mt-8 grid gap-3 md:grid-cols-5;
+  }
+
+  .workflow-steps li {
+    @apply relative flex min-w-0 items-center gap-3 rounded-xl border bg-background/55 p-3 md:block md:p-4;
+  }
+
+  .workflow-steps__number {
+    @apply text-[0.68rem] font-bold tracking-wider text-skillPurple;
+  }
+
+  .workflow-steps__label {
+    @apply block text-sm font-semibold md:mt-2;
+  }
+
+  .workflow-steps__connector {
+    @apply absolute bg-skillPurple/45;
+    bottom: -0.8rem;
+    left: 1.25rem;
+    height: 0.8rem;
+    width: 1px;
+  }
+
+  .skills-grid {
+    @apply grid items-start gap-5 md:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .skill-card {
+    @apply relative overflow-hidden border bg-card/80 shadow-lg shadow-black/[0.03] backdrop-blur transition-[border-color,box-shadow,transform] duration-300;
+  }
+
+  .skill-card__accent {
+    @apply mb-1 h-1 w-10 rounded-full;
+    background: var(--skill-card-color);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--skill-card-color) 38%, transparent);
+  }
+
+  .skill-card--blue { --skill-card-color: hsl(var(--skill-blue)); @apply border-skillBlue/20; }
+  .skill-card--green { --skill-card-color: hsl(var(--skill-green)); @apply border-skillGreen/20; }
+  .skill-card--purple { --skill-card-color: hsl(var(--skill-purple)); @apply border-skillPurple/20; }
+  .skill-card--orange { --skill-card-color: hsl(var(--skill-orange)); @apply border-skillOrange/20; }
+  .skill-card--red { --skill-card-color: hsl(var(--skill-red)); @apply border-skillRed/20; }
+  .skill-card--teal { --skill-card-color: hsl(var(--skill-teal)); @apply border-skillTeal/20; }
+
+  .education-grid {
+    @apply grid gap-5 lg:grid-cols-[1.35fr_0.65fr];
+  }
+
+  .education-feature {
+    @apply overflow-hidden border-skillBlue/25 bg-card/85 shadow-xl shadow-skillBlue/5;
+    background-image: linear-gradient(135deg, hsl(var(--skill-blue) / 0.1), transparent 55%);
+  }
+
+  .education-support {
+    @apply border-border/80 bg-card/75 shadow-md shadow-black/[0.03];
+  }
+
+  .education-logo {
+    @apply flex size-14 shrink-0 items-center justify-center rounded-xl border bg-white p-2 shadow-sm;
+  }
+
+  .education-logo--featured {
+    @apply size-20 sm:size-24;
+  }
+
+  .education-logo img {
+    @apply h-full w-full object-contain;
+  }
+
+  .certificate-grid {
+    @apply grid gap-5 md:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .certificate-card {
+    @apply overflow-hidden rounded-xl border bg-card/80 shadow-lg shadow-black/[0.04] transition-[border-color,box-shadow,transform] duration-300;
+  }
+
+  .certificate-card--blue { @apply border-skillBlue/20; }
+  .certificate-card--orange { @apply border-skillOrange/20; }
+  .certificate-card--red { @apply border-skillRed/20; }
+
+  .certificate-card__image {
+    @apply flex aspect-[4/3] items-center justify-center border-b bg-white/95 p-3;
+  }
+
+  .certificate-card__image img {
+    @apply h-full w-full object-contain;
+  }
+
+  .certificate-card figcaption {
+    @apply p-4;
+  }
+
+  .certificate-card h4 {
+    @apply text-sm font-semibold leading-5;
+  }
+
+  .certificate-card figcaption p {
+    @apply mt-2 flex flex-wrap gap-1.5 text-xs text-muted-foreground;
+  }
+
+  .contact-panel {
+    @apply grid gap-8 rounded-2xl border border-skillTeal/20 bg-card/80 p-6 shadow-2xl shadow-skillTeal/5 backdrop-blur sm:p-10 lg:grid-cols-[1fr_auto] lg:items-center;
+  }
+}
+
+@media (min-width: 768px) {
+  .workflow-steps__connector {
+    bottom: auto;
+    left: 100%;
+    top: 50%;
+    height: 1px;
+    width: 0.8rem;
+    transform: translateY(-50%);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-shot:hover,
+  .experience-card:hover,
+  .skill-card:hover,
+  .certificate-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px hsl(222 50% 3% / 0.12);
+  }
+
+  .project-shot:hover { @apply border-skillBlue/35; }
+  .experience-card:hover { border-color: color-mix(in srgb, var(--experience-color) 38%, transparent); }
+  .skill-card:hover { border-color: color-mix(in srgb, var(--skill-card-color) 38%, transparent); }
+}
+
+@keyframes data-pulse {
+  0%, 100% { opacity: 0.45; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.15); }
 }
 
 @layer utilities {
@@ -112,4 +512,18 @@ All colors MUST be HSL.
     @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
   }
   .hover-scale { @apply transition-transform duration-200 hover:scale-105; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -10,6 +10,7 @@ export default function CyberBackground() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const onMove = (e: MouseEvent) => {
       const { innerWidth: w, innerHeight: h } = window;
