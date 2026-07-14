@@ -4,7 +4,8 @@ import ThemeToggle from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 
 const navigationItems = [
-  { label: "Work", href: "#work" },
+  { label: "Home", href: "#home" },
+  { label: "Product", href: "#product" },
   { label: "Experience", href: "#experience" },
   { label: "Skills", href: "#skills" },
   { label: "Education", href: "#education" },
@@ -38,7 +39,7 @@ export default function Header() {
       <header className="sticky top-0 z-50 border-b bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
         <nav className="container mx-auto flex h-16 items-center justify-between gap-3 px-4" aria-label="Primary navigation">
           <a
-            href="#top"
+            href="#home"
             className="min-w-0 truncate rounded-md font-crimson text-xl font-bold tracking-wide focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             onClick={() => setIsMenuOpen(false)}
           >

@@ -1,6 +1,8 @@
 import { ExternalLink, Github } from "lucide-react";
 import { portfolioLinks } from "@/config/portfolio";
 import { Button } from "@/components/ui/button";
+import KineticProjectGallery, { type ProjectSlideId } from "@/components/KineticProjectGallery";
+import { useState } from "react";
 
 const technologies = ["React", "TypeScript", "Vite", "PostgreSQL", "REST APIs", "Vercel"];
 
@@ -19,14 +21,16 @@ const evidence = [
 ] as const;
 
 export default function FeaturedProjects() {
+  const [activeSlide, setActiveSlide] = useState<ProjectSlideId>("home");
+
   return (
-    <section id="work" aria-labelledby="work-title" className="relative scroll-mt-20 overflow-hidden py-20 sm:py-28">
-      <div className="section-glow section-glow--blue" aria-hidden="true" />
+    <section id="product" aria-labelledby="product-title" className="project-section relative scroll-mt-20 overflow-hidden py-20 sm:py-28" data-gallery-active={activeSlide}>
+      <div className="section-glow project-section__glow" aria-hidden="true" />
       <div className="container relative mx-auto px-4">
         <div className="mb-12 flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
           <div className="max-w-3xl">
             <p className="section-kicker text-skillBlue">Featured project</p>
-            <h2 id="work-title" className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">MINGTO HK / Hong Kong Insights</h2>
+            <h2 id="product-title" className="section-heading section-heading--project mt-3 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl"><span className="heading-accent heading-accent--orange">MINGTO HK</span> / Hong Kong Insights</h2>
             <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
               A personalised Hong Kong cultural-analysis and self-reflection web product, presented as the primary case study for product and full-stack development.
             </p>
@@ -67,22 +71,7 @@ export default function FeaturedProjects() {
               )}
             </div>
 
-            <figure className="browser-frame project-home-shot min-w-0">
-              <div className="browser-frame__bar" aria-hidden="true"><span /><span /><span /><span className="browser-frame__address">MINGTO HK</span></div>
-              <img src="/projects/mingto/mingto-home-desktop.jpg" alt="MINGTO HK homepage showing the personalised cultural-analysis product interface" width="1896" height="903" loading="lazy" decoding="async" />
-              <figcaption>Product homepage</figcaption>
-            </figure>
-          </div>
-
-          <div className="project-collage">
-            <figure className="project-shot project-shot--report">
-              <div className="project-shot__image"><img src="/projects/mingto/mingto-report-desktop.jpg" alt="MINGTO HK structured report workflow displaying personalised analysis results" width="1900" height="904" loading="lazy" decoding="async" /></div>
-              <figcaption><span>Report workflow</span><small>Structured calculation and analysis results</small></figcaption>
-            </figure>
-            <figure className="project-shot project-shot--oracle">
-              <div className="project-shot__image"><img src="/projects/mingto/mingto-oracle-desktop.jpg" alt="MINGTO HK oracle-card interface showing the interactive 3D experience" width="1898" height="901" loading="lazy" decoding="async" /></div>
-              <figcaption><span>Oracle interaction</span><small>Interactive 3D card experience</small></figcaption>
-            </figure>
+            <KineticProjectGallery onActiveChange={setActiveSlide} />
           </div>
 
           <div className="evidence-grid project-evidence">
