@@ -1,46 +1,75 @@
-const evidenceTracks = [
+import { Braces, ShieldCheck, Workflow, type LucideIcon } from "lucide-react";
+import { useState, type CSSProperties } from "react";
+
+interface StackPanel {
+  id: "build" | "automate" | "secure";
+  label: string;
+  phrase: string;
+  tools: string[];
+  icon: LucideIcon;
+}
+
+const stackPanels: StackPanel[] = [
   {
-    label: "Software",
-    tone: "blue",
-    steps: ["Web Application", "REST API", "Data"],
+    id: "build",
+    label: "Build",
+    phrase: "Product interfaces and data-backed workflows",
+    tools: ["React Interface", "REST API", "PostgreSQL"],
+    icon: Braces,
   },
   {
-    label: "Automation",
-    tone: "purple",
-    steps: ["Request", "Validation", "Workflow"],
+    id: "automate",
+    label: "Automate",
+    phrase: "Process orchestration and operational automation",
+    tools: ["Zapier", "n8n", "Workflow Design"],
+    icon: Workflow,
   },
   {
-    label: "Security",
-    tone: "orange",
-    steps: ["SIEM / EDR", "Investigation", "Escalation"],
+    id: "secure",
+    label: "Secure",
+    phrase: "Alert triage and endpoint investigation",
+    tools: ["Splunk", "CrowdStrike Falcon", "Incident Investigation"],
+    icon: ShieldCheck,
   },
-] as const;
+];
 
 export default function HeroSystemVisual() {
+  const [activePanel, setActivePanel] = useState<StackPanel["id"] | null>(null);
+
   return (
-    <aside className="system-map" aria-labelledby="system-map-title">
-      <div className="system-map__header">
-        <div>
-          <p className="section-kicker">How the work connects</p>
-          <h2 id="system-map-title" className="mt-1 text-lg font-semibold">Systems, workflows, and response</h2>
-        </div>
-        <span className="system-map__status"><span aria-hidden="true" /> Practical experience</span>
+    <aside className="engineering-stack" aria-labelledby="engineering-stack-title" data-active={activePanel ?? "none"}>
+      <div className="engineering-stack__heading">
+        <p className="section-kicker text-skillTeal">Engineering stack</p>
+        <h2 id="engineering-stack-title">What I build and operate</h2>
+        <p>Three connected areas of practical experience.</p>
       </div>
 
-      <div className="system-map__tracks">
-        {evidenceTracks.map((track) => (
-          <section key={track.label} className={`system-track system-track--${track.tone}`} aria-label={`${track.label} evidence flow`}>
-            <h3>{track.label}</h3>
-            <ol>
-              {track.steps.map((step, index) => (
-                <li key={step}>
-                  <span>{step}</span>
-                  {index < track.steps.length - 1 && <span className="system-track__connector" aria-hidden="true" />}
-                </li>
-              ))}
-            </ol>
-          </section>
-        ))}
+      <div className="engineering-stack__panels">
+        {stackPanels.map((panel, index) => {
+          const Icon = panel.icon;
+          return (
+            <button
+              key={panel.id}
+              type="button"
+              className={`stack-panel stack-panel--${panel.id}`}
+              style={{ "--panel-index": index } as CSSProperties}
+              aria-pressed={activePanel === panel.id}
+              onPointerEnter={() => setActivePanel(panel.id)}
+              onPointerLeave={() => setActivePanel(null)}
+              onFocus={() => setActivePanel(panel.id)}
+              onBlur={() => setActivePanel(null)}
+            >
+              <span className="stack-panel__topline">
+                <span className="stack-panel__identity"><Icon aria-hidden="true" /><span>{panel.label}</span></span>
+                <span className="stack-panel__status"><span aria-hidden="true" /> Focus area</span>
+              </span>
+              <span className="stack-panel__phrase">{panel.phrase}</span>
+              <span className="stack-panel__tools" aria-label={`${panel.label} tools and practices`}>
+                {panel.tools.map((tool) => <span key={tool}>{tool}</span>)}
+              </span>
+            </button>
+          );
+        })}
       </div>
     </aside>
   );

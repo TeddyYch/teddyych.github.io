@@ -112,6 +112,15 @@ All colors MUST be HSL.
     scroll-padding-top: 5rem;
   }
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+
   ::selection {
     background: hsl(var(--skill-blue) / 0.2);
   }
@@ -119,7 +128,7 @@ All colors MUST be HSL.
 
 @layer components {
   .section-kicker {
-    @apply text-xs font-bold uppercase tracking-[0.2em];
+    @apply font-display text-xs font-bold uppercase tracking-[0.2em];
   }
 
   .section-grid {
@@ -256,7 +265,7 @@ All colors MUST be HSL.
   }
 
   .status-chip {
-    @apply inline-flex w-fit items-center rounded-full border px-3 py-1.5 text-xs font-bold uppercase tracking-[0.12em];
+    @apply inline-flex w-fit items-center rounded-full border px-3 py-1.5 font-display text-xs font-bold uppercase tracking-[0.12em];
   }
 
   .status-chip--orange {
@@ -264,7 +273,7 @@ All colors MUST be HSL.
   }
 
   .project-detail__label {
-    @apply text-xs font-bold uppercase tracking-[0.16em] text-skillBlue;
+    @apply font-display text-xs font-bold uppercase tracking-[0.16em] text-skillBlue;
   }
 
   .project-detail > p:last-child {
@@ -307,8 +316,8 @@ All colors MUST be HSL.
     @apply overflow-hidden rounded-xl border bg-background/70 shadow-lg shadow-black/5 transition-[border-color,box-shadow,transform] duration-300;
   }
 
-  .project-shot--report { @apply border-skillTeal/20; }
-  .project-shot--oracle { @apply border-skillPurple/25 lg:mt-10; }
+  .project-shot--report { @apply border-skillBlue/20; }
+  .project-shot--oracle { @apply border-skillOrange/25 lg:mt-10; }
 
   .project-shot__image {
     @apply overflow-hidden border-b bg-black/5;
@@ -399,7 +408,10 @@ All colors MUST be HSL.
   }
 
   .skill-card {
-    @apply relative overflow-hidden border bg-card/80 shadow-lg shadow-black/[0.03] backdrop-blur transition-[border-color,box-shadow,transform] duration-300;
+    @apply relative overflow-hidden border shadow-lg shadow-black/[0.03] backdrop-blur transition-[border-color,box-shadow,transform] duration-300;
+    background:
+      radial-gradient(circle at 90% 8%, color-mix(in srgb, var(--skill-card-color) 14%, transparent), transparent 38%),
+      linear-gradient(145deg, color-mix(in srgb, var(--skill-card-color) 8%, hsl(var(--card))), hsl(var(--card)) 58%);
   }
 
   .skill-card__accent {
@@ -475,6 +487,142 @@ All colors MUST be HSL.
   .contact-panel {
     @apply grid gap-8 rounded-2xl border border-skillTeal/20 bg-card/80 p-6 shadow-2xl shadow-skillTeal/5 backdrop-blur sm:p-10 lg:grid-cols-[1fr_auto] lg:items-center;
   }
+
+  /* Phase 1D: readable interactive engineering stack */
+  .engineering-stack {
+    @apply relative min-w-0 overflow-hidden border-y border-skillBlue/20 bg-card/55 px-4 py-6 shadow-2xl shadow-skillBlue/[0.06] backdrop-blur sm:rounded-2xl sm:border sm:p-6;
+    background-image:
+      radial-gradient(circle at 85% 12%, hsl(var(--skill-teal) / 0.12), transparent 32%),
+      linear-gradient(145deg, hsl(var(--skill-blue) / 0.07), transparent 42%, hsl(var(--skill-purple) / 0.06));
+  }
+
+  .engineering-stack::before {
+    content: "";
+    @apply pointer-events-none absolute inset-x-8 top-0 h-px;
+    background: linear-gradient(90deg, transparent, hsl(var(--skill-blue) / 0.75), hsl(var(--skill-teal) / 0.65), transparent);
+  }
+
+  .engineering-stack__heading { @apply relative z-10 max-w-md; }
+  .engineering-stack__heading h2 { @apply mt-2 text-xl font-semibold tracking-[-0.02em] sm:text-2xl; }
+  .engineering-stack__heading > p:last-child { @apply mt-1.5 text-sm leading-6 text-muted-foreground; }
+
+  .engineering-stack__panels {
+    @apply relative z-10 mt-6 grid gap-3;
+    perspective: 1100px;
+    transform-style: preserve-3d;
+  }
+
+  .stack-panel {
+    --panel-color: hsl(var(--skill-blue));
+    @apply relative block overflow-hidden rounded-xl border p-4 text-left text-foreground outline-none transition-[transform,border-color,box-shadow,opacity] duration-300;
+    width: calc(100% - 1.25rem);
+    min-height: 9.25rem;
+    border-color: color-mix(in srgb, var(--panel-color) 32%, hsl(var(--border)));
+    background:
+      linear-gradient(110deg, color-mix(in srgb, var(--panel-color) 13%, hsl(var(--card))), hsl(var(--card)) 52%),
+      hsl(var(--card));
+    box-shadow: 0 18px 38px hsl(222 55% 3% / 0.14), inset 3px 0 0 color-mix(in srgb, var(--panel-color) 78%, transparent);
+    transform: translate3d(calc(var(--panel-index) * 0.65rem), 0, calc(var(--panel-index) * 10px)) rotateY(-1.8deg);
+  }
+
+  .stack-panel::after {
+    content: "";
+    @apply pointer-events-none absolute -right-12 -top-16 size-40 rounded-full blur-3xl;
+    background: color-mix(in srgb, var(--panel-color) 20%, transparent);
+  }
+
+  .stack-panel.stack-panel--build { --panel-color: hsl(var(--skill-blue)); }
+  .stack-panel.stack-panel--automate { --panel-color: hsl(var(--skill-purple)); }
+  .stack-panel.stack-panel--secure { --panel-color: hsl(var(--skill-orange)); }
+
+  .stack-panel__topline { @apply relative z-10 flex items-center justify-between gap-3; }
+  .stack-panel__identity { @apply flex items-center gap-2 font-display text-xs font-bold uppercase tracking-[0.16em]; color: var(--panel-color); }
+  .stack-panel__identity svg { @apply size-4; }
+  .stack-panel__status { @apply flex items-center gap-1.5 font-display text-[0.58rem] font-semibold uppercase tracking-[0.12em] text-muted-foreground; }
+  .stack-panel__status > span { @apply size-1.5 rounded-full; background: var(--panel-color); box-shadow: 0 0 10px color-mix(in srgb, var(--panel-color) 65%, transparent); }
+  .stack-panel__phrase { @apply relative z-10 mt-3 block text-sm font-medium leading-5; }
+  .stack-panel__tools { @apply relative z-10 mt-3 flex flex-wrap gap-2; }
+  .stack-panel__tools > span { @apply rounded-full border bg-background/55 px-2.5 py-1 text-[0.68rem] font-medium text-muted-foreground; border-color: color-mix(in srgb, var(--panel-color) 23%, hsl(var(--border))); }
+
+  .stack-panel:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 3px; }
+  .stack-panel[aria-pressed="true"] {
+    border-color: color-mix(in srgb, var(--panel-color) 65%, transparent);
+    box-shadow: 0 22px 50px color-mix(in srgb, var(--panel-color) 15%, hsl(222 55% 3% / 0.2)), inset 3px 0 0 var(--panel-color);
+    transform: translate3d(calc(var(--panel-index) * 0.35rem), -3px, 48px) rotateY(0deg);
+  }
+
+  .engineering-stack[data-active]:not([data-active="none"]) .stack-panel:not([aria-pressed="true"]) {
+    opacity: 0.76;
+    transform: translate3d(calc(var(--panel-index) * 0.65rem), 2px, -18px) rotateY(-1.8deg) scale(0.99);
+  }
+
+  /* Phase 1D: warm product accent without enclosing the case study */
+  .project-case { @apply relative; }
+  .project-overview { @apply grid min-w-0 items-center gap-10 lg:grid-cols-[0.68fr_1.32fr]; }
+  .project-narrative { @apply relative border-l border-skillOrange/45 py-2 pl-5 sm:pl-7; }
+  .project-home-shot { @apply relative transition-[border-color,box-shadow] duration-300 lg:-mr-8 lg:translate-y-3; box-shadow: 0 28px 70px hsl(222 60% 2% / 0.28), -18px 18px 0 -17px hsl(var(--skill-orange) / 0.58); }
+  .project-collage { @apply mt-16 grid gap-7 lg:grid-cols-[1.18fr_0.82fr] lg:items-start; }
+  .project-collage .project-shot--report { @apply lg:-ml-5; }
+  .project-collage .project-shot--oracle { @apply lg:mr-6 lg:mt-20; }
+  .project-evidence { @apply mt-20 border-y border-x-0 px-0 sm:px-0 lg:px-0; }
+
+  /* Phase 1D: exactly six aligned skill categories */
+  .skills-grid { @apply grid items-stretch gap-5 md:grid-cols-2 lg:grid-cols-3; }
+  .skills-grid .skill-card { @apply h-full min-h-[16.5rem]; }
+
+  /* Phase 1D: employer-identity alternating timeline */
+  .timeline-list { @apply relative mx-auto max-w-6xl space-y-10; }
+  .timeline-list::before { content: none; }
+  .timeline-entry { --timeline-color: hsl(var(--skill-blue)); @apply relative grid min-w-0 gap-3; }
+  .timeline-entry--blue { --timeline-color: hsl(var(--skill-blue)); }
+  .timeline-entry--purple { --timeline-color: hsl(var(--skill-purple)); }
+  .timeline-entry--orange { --timeline-color: hsl(var(--skill-orange)); }
+  .timeline-entry--teal { --timeline-color: hsl(var(--skill-teal)); }
+  .timeline-identity { @apply flex items-center gap-3; }
+  .timeline-marker { @apply z-10 flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border bg-white p-1.5 shadow-lg; border-color: color-mix(in srgb, var(--timeline-color) 58%, transparent); color: var(--timeline-color); box-shadow: 0 0 20px color-mix(in srgb, var(--timeline-color) 17%, transparent); }
+  .timeline-marker img { @apply h-full w-full object-contain; }
+  .timeline-marker > span { @apply font-display text-[0.68rem] font-bold tracking-[0.05em]; }
+  .timeline-year { @apply font-display text-xs font-bold tracking-[0.16em]; color: var(--timeline-color); }
+  .timeline-card { @apply relative overflow-hidden border-y border-r border-l-2 bg-card/70 p-5 shadow-lg shadow-black/[0.04] backdrop-blur sm:rounded-xl sm:border sm:p-6; border-left-color: var(--timeline-color); }
+  .timeline-card--prominent { background-image: linear-gradient(120deg, color-mix(in srgb, var(--timeline-color) 10%, transparent), transparent 48%); box-shadow: 0 20px 55px color-mix(in srgb, var(--timeline-color) 7%, transparent); }
+  .timeline-card__heading { @apply flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-5; }
+  .timeline-card__heading h3 { @apply text-xl font-bold sm:text-2xl; }
+  .timeline-card__role { @apply mt-1 font-medium; }
+  .timeline-card__date { @apply shrink-0 text-sm font-medium text-muted-foreground; }
+  .timeline-card__highlights { @apply mt-5 space-y-2.5 text-sm leading-6 text-muted-foreground; }
+  .timeline-card__highlights li { @apply flex gap-3; }
+  .timeline-card__highlights li > span { @apply mt-2.5 size-1.5 shrink-0 rounded-full; background: var(--timeline-color); }
+  .timeline-tools { @apply mt-6 border-t pt-5; }
+  .timeline-tools > h4 { @apply text-sm font-semibold; }
+  .timeline-tools__groups { @apply mt-3 grid gap-4; }
+  .timeline-tools h5 { @apply text-[0.65rem] font-bold uppercase tracking-[0.13em] text-muted-foreground; }
+  .timeline-tools ul { @apply mt-2 flex flex-wrap gap-2; }
+}
+
+@media (min-width: 900px) {
+  .timeline-list { @apply space-y-4; }
+  .timeline-list::before {
+    content: "";
+    @apply absolute bottom-7 left-1/2 top-7 w-px -translate-x-1/2;
+    background: linear-gradient(to bottom, hsl(var(--skill-blue) / 0.65), hsl(var(--skill-purple) / 0.58), hsl(var(--skill-orange) / 0.5), hsl(var(--skill-teal) / 0.55));
+  }
+  .timeline-entry { grid-template-columns: minmax(0, 1fr) 5.5rem minmax(0, 1fr); align-items: start; gap: 0; }
+  .timeline-identity { grid-column: 2; grid-row: 1; z-index: 2; flex-direction: column; gap: 0.45rem; justify-self: center; }
+  .timeline-entry--left .timeline-card { grid-column: 1; grid-row: 1; margin-right: 0.25rem; }
+  .timeline-entry--right .timeline-card { grid-column: 3; grid-row: 1; margin-left: 0.25rem; }
+}
+
+@media (max-width: 639px) {
+  .engineering-stack__panels { perspective: none; transform-style: flat; }
+  .stack-panel,
+  .stack-panel[aria-pressed="true"],
+  .engineering-stack[data-active]:not([data-active="none"]) .stack-panel:not([aria-pressed="true"]) { width: 100%; opacity: 1; transform: none; }
+  .project-home-shot, .project-collage .project-shot--report, .project-collage .project-shot--oracle { transform: none; margin: 0; }
+}
+
+@supports not (transform-style: preserve-3d) {
+  .engineering-stack__panels { perspective: none; }
+  .stack-panel { transform: none; }
 }
 
 @media (min-width: 768px) {
@@ -489,6 +637,11 @@ All colors MUST be HSL.
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .project-home-shot:hover {
+    @apply border-skillOrange/40;
+    box-shadow: 0 32px 78px hsl(222 60% 2% / 0.34), -18px 18px 0 -17px hsl(var(--skill-orange) / 0.8);
+  }
+
   .project-shot:hover,
   .experience-card:hover,
   .skill-card:hover,
@@ -498,6 +651,7 @@ All colors MUST be HSL.
   }
 
   .project-shot:hover { @apply border-skillBlue/35; }
+  .project-shot--oracle:hover { @apply border-skillOrange/45; }
   .experience-card:hover { border-color: color-mix(in srgb, var(--experience-color) 38%, transparent); }
   .skill-card:hover { border-color: color-mix(in srgb, var(--skill-card-color) 38%, transparent); }
 }

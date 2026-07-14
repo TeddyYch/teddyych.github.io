@@ -11,7 +11,7 @@ const navigationItems = [
   { label: "Contact", href: "#contact" },
 ];
 
-const linkClass = "rounded-md px-2 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+const linkClass = "rounded-md px-2 py-1.5 font-display text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,7 +31,7 @@ export default function Header() {
     <>
       <a
         href="#main-content"
-        className="fixed left-4 top-3 z-[60] -translate-y-20 rounded-md bg-background px-4 py-2 text-sm font-semibold shadow-lg transition-transform focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-ring"
+        className="fixed left-4 top-3 z-[60] -translate-y-20 rounded-md bg-background px-4 py-2 font-display text-sm font-semibold shadow-lg transition-transform focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-ring"
       >
         Skip to content
       </a>

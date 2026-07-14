@@ -18,12 +18,10 @@ export default {
 				'2xl': '1400px'
 			}
 		},
-		extend: {
+			extend: {
 			fontFamily: {
 				sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
-				display: ["Playfair Display", "serif"],
-				orbitron: ["Orbitron", "monospace"],
-				poppins: ["Poppins", "sans-serif"],
+				display: ["Space Grotesk", "ui-sans-serif", "system-ui", "sans-serif"],
 				crimson: ["Crimson Text", "serif"],
 			},
 			colors: {

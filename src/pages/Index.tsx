@@ -7,7 +7,6 @@ import FeaturedProjects from "@/components/FeaturedProjects";
 import CertificateGallery from "@/components/CertificateGallery";
 import CyberBackground from "@/components/CyberBackground";
 import HeroSystemVisual from "@/components/HeroSystemVisual";
-import AutomationWorkflow from "@/components/AutomationWorkflow";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SkillCard } from "@/components/SkillCard";
@@ -75,10 +74,10 @@ const Index = () => {
         <section aria-labelledby="hero-title" className="hero-section section-grid relative overflow-hidden border-b">
           <div className="section-glow section-glow--hero" aria-hidden="true" />
           <div className="container relative mx-auto px-4 py-16 sm:py-20 lg:py-28">
-            <div className="grid min-w-0 items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] xl:gap-16">
+            <div className="grid min-w-0 items-center gap-12 xl:grid-cols-[1.05fr_0.95fr] xl:gap-16">
               <div className="min-w-0">
                 <p className="section-kicker text-skillBlue">Teddy Yiu · Hong Kong</p>
-                <h1 id="hero-title" className="mt-4 max-w-4xl text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+                <h1 id="hero-title" className="mt-4 max-w-4xl text-4xl font-semibold leading-[1.04] tracking-[-0.035em] sm:text-5xl lg:text-6xl">
                   Software Developer &amp; Security Automation Builder
                 </h1>
                 <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">
@@ -117,9 +116,6 @@ const Index = () => {
               <p className="mt-3 text-muted-foreground">Software delivery, business-process automation, and frontline security operations.</p>
             </div>
             <Timeline />
-            <div className="mt-12 sm:mt-16">
-              <AutomationWorkflow />
-            </div>
           </div>
         </section>
 
@@ -132,19 +128,16 @@ const Index = () => {
               <p className="mt-3 text-muted-foreground">Tools grouped by the work they support: software delivery, data, security operations, and automation.</p>
             </div>
             <div className="skills-grid">
-              <SkillCard title="Programming Languages and Web Fundamentals" tone="blue" items={["Python", "Java", "C++", "TypeScript", "JavaScript", "HTML", "CSS", "SQL"]} />
-              <SkillCard title="Web and UI" tone="teal" items={["React", "Vite", "Tailwind CSS"]} />
-              <SkillCard title="Backend and Data" tone="green" items={["REST APIs", "PostgreSQL", "MySQL", "MongoDB", "SQLite"]} />
+              <SkillCard title="Programming & Web Foundations" tone="blue" items={["Python", "Java", "C++", "TypeScript", "JavaScript", "HTML", "CSS", "SQL"]} />
+              <SkillCard title="Frontend & Interactive UI" tone="teal" items={["React", "Vite", "Tailwind CSS", "Responsive Design", "Accessibility", "CSS 3D", "SVG"]} />
+              <SkillCard title="Backend & Data" tone="green" items={["REST APIs", "PostgreSQL", "MySQL", "MongoDB", "SQLite", "Firebase"]} />
               <SkillCard
                 title="Security Operations"
-                description="Investigation tooling and operational practices used during SOC work."
                 tone="orange"
-                className="lg:col-span-2"
-                items={["SIEM alert triage", "Endpoint investigation", "Splunk", "Elastic", "CrowdStrike Falcon", "Cortex XDR", "Carbon Black Cloud", "Darktrace"]}
+                items={["SIEM Alert Triage", "Endpoint Investigation", "Splunk", "Elastic", "CrowdStrike Falcon", "Cortex XDR", "Carbon Black Cloud", "Darktrace"]}
               />
-              <SkillCard title="Automation and Platforms" tone="purple" items={["Zapier", "n8n", "Make", "Git", "GitHub", "Vercel"]} />
-              <SkillCard title="Additional Technical Tools" tone="blue" emphasis="secondary" items={["Linux", "Android Studio", "Firebase", "Jupyter"]} />
-              <SkillCard title="Creative Suite" description="Supporting visual and media tools." tone="red" emphasis="secondary" className="lg:col-span-2" items={["Photoshop", "InDesign", "Illustrator", "Premiere Pro", "GarageBand"]} />
+              <SkillCard title="Automation, Cloud & Delivery" tone="purple" items={["Zapier", "n8n", "Make", "Git", "GitHub", "GitHub Actions", "Vercel", "Linux"]} />
+              <SkillCard title="Design & Creative Tools" tone="red" items={["Photoshop", "Illustrator", "InDesign", "Premiere Pro", "GarageBand"]} />
             </div>
           </div>
         </section>

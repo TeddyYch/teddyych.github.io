@@ -26,12 +26,8 @@ const cardVariants = cva("skill-card group", {
       red: "skill-card--red",
       teal: "skill-card--teal",
     },
-    emphasis: {
-      primary: "",
-      secondary: "opacity-90",
-    },
   },
-  defaultVariants: { tone: "blue", emphasis: "primary" },
+  defaultVariants: { tone: "blue" },
 });
 
 export type Tone = "blue" | "green" | "purple" | "orange" | "red" | "teal";
@@ -41,18 +37,16 @@ export function SkillCard({
   description,
   items,
   tone = "blue",
-  emphasis = "primary",
   className,
 }: {
   title: string;
   description?: string;
   items: string[];
   tone?: Tone;
-  emphasis?: "primary" | "secondary";
   className?: string;
 }) {
   return (
-    <Card className={cn(cardVariants({ tone, emphasis }), className)}>
+    <Card className={cn(cardVariants({ tone }), className)}>
       <CardHeader className="pb-4">
         <div className="skill-card__accent" aria-hidden="true" />
         <CardTitle className="text-lg font-semibold tracking-tight">{title}</CardTitle>
