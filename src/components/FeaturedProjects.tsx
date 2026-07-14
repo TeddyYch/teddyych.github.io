@@ -1,0 +1,84 @@
+import { ExternalLink, Github } from "lucide-react";
+import { portfolioLinks } from "@/config/portfolio";
+import { Button } from "@/components/ui/button";
+import KineticProjectGallery, { type ProjectSlideId } from "@/components/KineticProjectGallery";
+import { useState } from "react";
+
+const technologies = ["React", "TypeScript", "Vite", "PostgreSQL", "REST APIs", "Vercel"];
+
+const capabilities = [
+  "Multi-page report workflows",
+  "Structured calculation and analysis results",
+  "Feedback collection",
+  "Interactive visualisations",
+  "3D oracle-card experience",
+];
+
+const evidence = [
+  { label: "Product", tone: "blue", text: "Personalised, multi-page cultural-analysis and self-reflection flows with structured results and feedback collection." },
+  { label: "Engineering", tone: "green", text: "A React and TypeScript interface connected to REST APIs and PostgreSQL-backed workflows, built and deployed with Vite and Vercel." },
+  { label: "Interaction", tone: "purple", text: "Interactive visualisations and a 3D oracle-card experience extend the reports beyond static content." },
+] as const;
+
+export default function FeaturedProjects() {
+  const [activeSlide, setActiveSlide] = useState<ProjectSlideId>("home");
+
+  return (
+    <section id="product" aria-labelledby="product-title" className="project-section relative scroll-mt-20 overflow-hidden py-20 sm:py-28" data-gallery-active={activeSlide}>
+      <div className="section-glow project-section__glow" aria-hidden="true" />
+      <div className="container relative mx-auto px-4">
+        <div className="mb-12 flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
+          <div className="max-w-3xl">
+            <p className="section-kicker text-skillBlue">Featured project</p>
+            <h2 id="product-title" className="section-heading section-heading--project mt-3 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl"><span className="heading-accent heading-accent--orange">MINGTO HK</span> / Hong Kong Insights</h2>
+            <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
+              A personalised Hong Kong cultural-analysis and self-reflection web product, presented as the primary case study for product and full-stack development.
+            </p>
+          </div>
+          <span className="status-chip status-chip--orange">In Development</span>
+        </div>
+
+        <article className="project-case">
+          <div className="project-overview">
+            <div className="project-narrative">
+              <div className="project-detail">
+                <p className="project-detail__label">Purpose</p>
+                <p>A personalised Hong Kong cultural-analysis and self-reflection web product.</p>
+              </div>
+              <div className="project-detail mt-6">
+                <p className="project-detail__label">My role</p>
+                <p>Full-stack product development across the React interface, REST API integration, structured report workflows, interactive visualisations, and deployment setup.</p>
+              </div>
+              <div className="mt-7">
+                <p className="project-detail__label">Technology</p>
+                <ul className="mt-3 flex flex-wrap gap-2" aria-label="MINGTO technology stack">
+                  {technologies.map((technology) => <li key={technology} className="surface-chip">{technology}</li>)}
+                </ul>
+              </div>
+              <div className="mt-7">
+                <p className="project-detail__label">Capabilities in scope</p>
+                <ul className="mt-3 space-y-2.5 text-sm leading-6 text-muted-foreground">
+                  {capabilities.map((capability) => (
+                    <li key={capability} className="flex gap-3"><span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-skillBlue" /><span>{capability}</span></li>
+                  ))}
+                </ul>
+              </div>
+              {(portfolioLinks.mingtoLive || portfolioLinks.mingtoRepository) && (
+                <div className="mt-8 flex flex-wrap gap-3">
+                  {portfolioLinks.mingtoLive && <Button asChild><a href={portfolioLinks.mingtoLive} target="_blank" rel="noreferrer">Live demo <ExternalLink aria-hidden="true" /></a></Button>}
+                  {portfolioLinks.mingtoRepository && <Button asChild variant="outline"><a href={portfolioLinks.mingtoRepository} target="_blank" rel="noreferrer">Source code <Github aria-hidden="true" /></a></Button>}
+                </div>
+              )}
+            </div>
+
+            <KineticProjectGallery onActiveChange={setActiveSlide} />
+          </div>
+
+          <div className="evidence-grid project-evidence">
+            {evidence.map((item) => <section key={item.label} className={`evidence-card evidence-card--${item.tone}`}><h3>{item.label}</h3><p>{item.text}</p></section>)}
+          </div>
+        </article>
+      </div>
+    </section>
+  );
+}

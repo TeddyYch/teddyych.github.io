@@ -2,34 +2,29 @@ import { cva } from "class-variance-authority";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
-const chipVariants = cva(
-  "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium border",
-  {
-    variants: {
-      tone: {
-        blue: "bg-skillBlue/10 text-skillBlue border-skillBlue/30",
-        green: "bg-skillGreen/10 text-skillGreen border-skillGreen/30",
-        purple: "bg-skillPurple/10 text-skillPurple border-skillPurple/30",
-        orange: "bg-skillOrange/10 text-skillOrange border-skillOrange/30",
-        red: "bg-skillRed/10 text-skillRed border-skillRed/30",
-        teal: "bg-skillTeal/10 text-skillTeal border-skillTeal/30",
-      },
-    },
-    defaultVariants: {
-      tone: "blue",
-    },
-  }
-);
-
-const cardVariants = cva("rounded-xl border shadow-sm", {
+const chipVariants = cva("surface-chip", {
   variants: {
     tone: {
-      blue: "border-skillBlue/30",
-      green: "border-skillGreen/30",
-      purple: "border-skillPurple/30",
-      orange: "border-skillOrange/30",
-      red: "border-skillRed/30",
-      teal: "border-skillTeal/30",
+      blue: "border-skillBlue/25 bg-skillBlue/[0.07] text-foreground",
+      green: "border-skillGreen/25 bg-skillGreen/[0.07] text-foreground",
+      purple: "border-skillPurple/25 bg-skillPurple/[0.07] text-foreground",
+      orange: "border-skillOrange/25 bg-skillOrange/[0.07] text-foreground",
+      red: "border-skillRed/25 bg-skillRed/[0.07] text-foreground",
+      teal: "border-skillTeal/25 bg-skillTeal/[0.07] text-foreground",
+    },
+  },
+  defaultVariants: { tone: "blue" },
+});
+
+const cardVariants = cva("skill-card group", {
+  variants: {
+    tone: {
+      blue: "skill-card--blue",
+      green: "skill-card--green",
+      purple: "skill-card--purple",
+      orange: "skill-card--orange",
+      red: "skill-card--red",
+      teal: "skill-card--teal",
     },
   },
   defaultVariants: { tone: "blue" },
@@ -39,34 +34,30 @@ export type Tone = "blue" | "green" | "purple" | "orange" | "red" | "teal";
 
 export function SkillCard({
   title,
+  description,
   items,
   tone = "blue",
+  className,
 }: {
   title: string;
+  description?: string;
   items: string[];
   tone?: Tone;
+  className?: string;
 }) {
   return (
-    <Card className={cn(cardVariants({ tone }))}>
-      <CardHeader className="pb-3">
-        <CardTitle className={cn(
-          "text-lg font-semibold",
-          tone === "blue" && "text-skillBlue",
-          tone === "green" && "text-skillGreen",
-          tone === "purple" && "text-skillPurple",
-          tone === "orange" && "text-skillOrange",
-          tone === "red" && "text-skillRed",
-          tone === "teal" && "text-skillTeal",
-        )}>{title}</CardTitle>
+    <Card className={cn(cardVariants({ tone }), className)}>
+      <CardHeader className="pb-4">
+        <div className="skill-card__accent" aria-hidden="true" />
+        <CardTitle className="text-lg font-semibold tracking-tight">{title}</CardTitle>
+        {description && <p className="text-sm leading-6 text-muted-foreground">{description}</p>}
       </CardHeader>
       <CardContent>
-        <div className="flex flex-wrap gap-2">
+        <ul className="flex flex-wrap gap-2" aria-label={`${title} skills`}>
           {items.map((item) => (
-            <span key={item} className={cn(chipVariants({ tone }))}>
-              {item}
-            </span>
+            <li key={item} className={cn(chipVariants({ tone }))}>{item}</li>
           ))}
-        </div>
+        </ul>
       </CardContent>
     </Card>
   );

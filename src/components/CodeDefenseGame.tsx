@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -116,8 +116,6 @@ export default function CodeDefenseGame() {
   const tickRef = useRef<number | null>(null);
 
   const alive = monsters.filter((m) => m.hp > 0);
-  const frontMost = useMemo(() => alive.sort((a,b) => a.distance - b.distance)[0], [monsters]);
-
   // Game loop
   useEffect(() => {
     if (!started) return;

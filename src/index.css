@@ -36,7 +36,7 @@ All colors MUST be HSL.
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -62,7 +62,7 @@ All colors MUST be HSL.
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
+    --card: 222 48% 7%;
     --card-foreground: 210 40% 98%;
 
     --popover: 222.2 84% 4.9%;
@@ -103,13 +103,772 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply min-w-[320px] bg-background text-foreground font-sans antialiased;
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+
+  ::selection {
+    background: hsl(var(--skill-blue) / 0.2);
   }
 }
+
+@layer components {
+  .section-kicker {
+    @apply flex items-center gap-2.5 font-display text-xs font-bold uppercase tracking-[0.2em];
+  }
+  .section-kicker::before { content: ""; @apply h-px w-5 shrink-0 bg-current opacity-65; }
+
+  .hero-title, .section-heading { text-wrap: balance; }
+  .section-heading { --section-heading-start: hsl(var(--skill-blue)); --section-heading-end: transparent; @apply leading-[1.08] tracking-[-0.03em]; }
+  .section-heading::after { content: ""; @apply mt-4 block h-0.5 w-14 rounded-full; background: linear-gradient(90deg, var(--section-heading-start), var(--section-heading-end)); }
+  .section-heading--project { --section-heading-start: hsl(var(--skill-orange)); --section-heading-end: hsl(var(--skill-blue) / 0.15); }
+  .section-heading--experience { --section-heading-start: hsl(var(--skill-blue)); --section-heading-end: hsl(var(--skill-purple) / 0.45); }
+  .section-heading--skills { --section-heading-start: hsl(var(--skill-purple)); --section-heading-end: hsl(var(--skill-teal) / 0.4); }
+  .section-heading--education { --section-heading-start: hsl(var(--skill-green)); }
+  .section-heading--credentials { --section-heading-start: hsl(var(--skill-orange)); }
+  .section-heading--contact { --section-heading-start: hsl(var(--skill-teal)); --section-heading-end: hsl(var(--skill-purple) / 0.4); }
+
+  .section-grid {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.32) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.32) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .section-glow {
+    @apply pointer-events-none absolute rounded-full blur-3xl;
+    width: min(38rem, 72vw);
+    height: min(38rem, 72vw);
+    opacity: 0.13;
+  }
+
+  .section-glow--hero {
+    right: -12rem;
+    top: -15rem;
+    background: hsl(var(--skill-blue));
+  }
+
+  .section-glow--blue {
+    left: -18rem;
+    top: 18rem;
+    background: hsl(var(--skill-teal));
+  }
+
+  .section-glow--purple {
+    right: -18rem;
+    top: 8rem;
+    background: hsl(var(--skill-purple));
+  }
+
+  .section-glow--green {
+    left: -16rem;
+    top: 12rem;
+    background: hsl(var(--skill-green));
+  }
+
+  .section-glow--contact {
+    right: -12rem;
+    top: -12rem;
+    background: hsl(var(--skill-blue));
+  }
+
+  .availability-line {
+    @apply mt-6 flex max-w-2xl items-start gap-2.5 text-xs font-medium leading-5 text-muted-foreground sm:text-sm;
+  }
+
+  .availability-line > span {
+    @apply mt-1.5 size-2 shrink-0 rounded-full bg-skillGreen shadow-[0_0_12px_hsl(var(--skill-green)/0.65)];
+  }
+
+  .system-map {
+    @apply relative min-w-0 overflow-hidden rounded-2xl border border-skillBlue/20 bg-card/80 p-4 shadow-2xl shadow-skillBlue/5 backdrop-blur sm:p-6;
+  }
+
+  .system-map::before {
+    content: "";
+    @apply pointer-events-none absolute inset-x-0 top-0 h-px;
+    background: linear-gradient(90deg, transparent, hsl(var(--skill-blue) / 0.8), hsl(var(--skill-teal) / 0.55), transparent);
+  }
+
+  .system-map__header {
+    @apply flex flex-col gap-3 border-b pb-5 sm:flex-row sm:items-start sm:justify-between;
+  }
+
+  .system-map__status {
+    @apply inline-flex w-fit items-center gap-2 rounded-full border bg-background/60 px-2.5 py-1 text-[0.68rem] font-semibold text-muted-foreground;
+  }
+
+  .system-map__status > span {
+    @apply size-1.5 rounded-full bg-skillGreen;
+    animation: data-pulse 2.4s ease-in-out infinite;
+  }
+
+  .system-map__tracks {
+    @apply mt-5 space-y-3;
+  }
+
+  .system-track {
+    @apply relative overflow-hidden rounded-xl border bg-background/45 p-3.5;
+  }
+
+  .system-track::after {
+    content: "";
+    @apply absolute inset-y-0 left-0 w-0.5;
+    background: var(--track-color);
+  }
+
+  .system-track--blue { --track-color: hsl(var(--skill-blue)); }
+  .system-track--purple { --track-color: hsl(var(--skill-purple)); }
+  .system-track--orange { --track-color: hsl(var(--skill-orange)); }
+
+  .system-track h3 {
+    color: var(--track-color);
+    @apply text-[0.68rem] font-bold uppercase tracking-[0.16em];
+  }
+
+  .system-track ol {
+    @apply mt-3 grid min-w-0 grid-cols-3 gap-3;
+  }
+
+  .system-track li {
+    @apply relative min-w-0;
+  }
+
+  .system-track li > span:first-child {
+    @apply flex min-h-10 items-center justify-center rounded-lg border bg-card/80 px-1.5 text-center text-[0.68rem] font-semibold leading-4 sm:text-xs;
+  }
+
+  .system-track__connector {
+    @apply pointer-events-none absolute left-full top-1/2 h-px w-3 -translate-y-1/2;
+    background: var(--track-color);
+    opacity: 0.55;
+  }
+
+  .system-track__connector::after {
+    content: "";
+    @apply absolute right-0 top-1/2 size-1 -translate-y-1/2 rounded-full;
+    background: var(--track-color);
+    animation: data-pulse 2.8s ease-in-out infinite;
+  }
+
+  .project-shell {
+    @apply relative overflow-hidden rounded-2xl border border-skillBlue/20 bg-card/80 shadow-2xl shadow-skillBlue/5 backdrop-blur;
+  }
+
+  .project-shell::before {
+    content: "";
+    @apply pointer-events-none absolute inset-x-0 top-0 h-px;
+    background: linear-gradient(90deg, transparent, hsl(var(--skill-blue) / 0.8), hsl(var(--skill-purple) / 0.6), transparent);
+  }
+
+  .status-chip {
+    @apply inline-flex w-fit items-center rounded-full border px-3 py-1.5 font-display text-xs font-bold uppercase tracking-[0.12em];
+  }
+
+  .status-chip--orange {
+    @apply border-skillOrange/35 bg-skillOrange/10 text-skillOrange;
+  }
+
+  .project-detail__label {
+    @apply font-display text-xs font-bold uppercase tracking-[0.16em] text-skillBlue;
+  }
+
+  .project-detail > p:last-child {
+    @apply mt-2 text-sm leading-6 text-muted-foreground;
+  }
+
+  .surface-chip {
+    @apply inline-flex items-center rounded-full border bg-background/60 px-3 py-1.5 text-xs font-medium text-foreground;
+  }
+
+  .browser-frame {
+    @apply overflow-hidden rounded-xl border border-skillBlue/25 bg-background shadow-xl shadow-black/10;
+  }
+
+  .browser-frame__bar {
+    @apply flex h-9 items-center gap-1.5 border-b bg-muted/60 px-3;
+  }
+
+  .browser-frame__bar > span:not(.browser-frame__address) {
+    @apply size-2.5 rounded-full bg-muted-foreground/25;
+  }
+
+  .browser-frame__address {
+    @apply ml-2 min-w-0 flex-1 truncate rounded bg-background/80 px-3 py-1 text-center text-[0.6rem] font-medium text-muted-foreground;
+  }
+
+  .browser-frame img {
+    @apply block h-auto w-full object-contain;
+  }
+
+  .browser-frame figcaption {
+    @apply border-t px-4 py-2.5 text-xs font-medium text-muted-foreground;
+  }
+
+  .project-gallery {
+    @apply grid gap-5 border-t bg-muted/20 p-5 sm:p-8 lg:grid-cols-[1.16fr_0.84fr] lg:p-10;
+  }
+
+  .project-shot {
+    @apply overflow-hidden rounded-xl border bg-background/70 shadow-lg shadow-black/5 transition-[border-color,box-shadow,transform] duration-300;
+  }
+
+  .project-shot--report { @apply border-skillBlue/20; }
+  .project-shot--oracle { @apply border-skillOrange/25 lg:mt-10; }
+
+  .project-shot__image {
+    @apply overflow-hidden border-b bg-black/5;
+    aspect-ratio: 1900 / 904;
+  }
+
+  .project-shot__image img {
+    @apply block h-full w-full object-contain;
+  }
+
+  .project-shot figcaption {
+    @apply flex flex-col gap-1 px-4 py-3;
+  }
+
+  .project-shot figcaption span { @apply text-sm font-semibold; }
+  .project-shot figcaption small { @apply text-xs text-muted-foreground; }
+
+  .evidence-grid {
+    @apply grid gap-4 border-t p-5 sm:p-8 md:grid-cols-3 lg:p-10;
+  }
+
+  .evidence-card {
+    @apply relative overflow-hidden rounded-xl border bg-background/55 p-5;
+  }
+
+  .evidence-card::before {
+    content: "";
+    @apply absolute inset-x-0 top-0 h-0.5;
+    background: var(--evidence-color);
+  }
+
+  .evidence-card--blue { --evidence-color: hsl(var(--skill-blue)); }
+  .evidence-card--green { --evidence-color: hsl(var(--skill-green)); }
+  .evidence-card--purple { --evidence-color: hsl(var(--skill-purple)); }
+  .evidence-card h3 { @apply font-semibold; color: var(--evidence-color); }
+  .evidence-card p { @apply mt-2 text-sm leading-6 text-muted-foreground; }
+
+  .experience-card {
+    @apply relative overflow-hidden rounded-2xl border bg-card/85 p-5 shadow-lg shadow-black/[0.03] backdrop-blur transition-[border-color,box-shadow,transform] duration-300 sm:p-7;
+  }
+
+  .experience-card::before {
+    content: "";
+    @apply absolute inset-y-5 left-0 w-0.5 rounded-r-full;
+    background: var(--experience-color);
+  }
+
+  .experience-card--blue { --experience-color: hsl(var(--skill-blue)); }
+  .experience-card--purple { --experience-color: hsl(var(--skill-purple)); }
+  .experience-card--orange { --experience-color: hsl(var(--skill-orange)); }
+  .experience-card--teal { --experience-color: hsl(var(--skill-teal)); }
+
+  .experience-card--prominent {
+    @apply border-skillBlue/35 shadow-xl shadow-skillBlue/[0.06];
+    background-image: linear-gradient(120deg, hsl(var(--skill-blue) / 0.08), transparent 45%);
+  }
+
+  .workflow-panel {
+    @apply overflow-hidden rounded-2xl border border-skillPurple/20 bg-card/85 p-5 shadow-xl shadow-skillPurple/5 sm:p-8;
+  }
+
+  .workflow-steps {
+    @apply mt-8 grid gap-3 md:grid-cols-5;
+  }
+
+  .workflow-steps li {
+    @apply relative flex min-w-0 items-center gap-3 rounded-xl border bg-background/55 p-3 md:block md:p-4;
+  }
+
+  .workflow-steps__number {
+    @apply text-[0.68rem] font-bold tracking-wider text-skillPurple;
+  }
+
+  .workflow-steps__label {
+    @apply block text-sm font-semibold md:mt-2;
+  }
+
+  .workflow-steps__connector {
+    @apply absolute bg-skillPurple/45;
+    bottom: -0.8rem;
+    left: 1.25rem;
+    height: 0.8rem;
+    width: 1px;
+  }
+
+  .skills-grid {
+    @apply grid items-start gap-5 md:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .skill-card {
+    @apply relative overflow-hidden border shadow-lg shadow-black/[0.03] backdrop-blur transition-[border-color,box-shadow,transform] duration-300;
+    background:
+      radial-gradient(circle at 90% 8%, color-mix(in srgb, var(--skill-card-color) 14%, transparent), transparent 38%),
+      linear-gradient(145deg, color-mix(in srgb, var(--skill-card-color) 8%, hsl(var(--card))), hsl(var(--card)) 58%);
+  }
+
+  .skill-card__accent {
+    @apply mb-1 h-1 w-10 rounded-full;
+    background: var(--skill-card-color);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--skill-card-color) 38%, transparent);
+  }
+
+  .skill-card--blue { --skill-card-color: hsl(var(--skill-blue)); @apply border-skillBlue/20; }
+  .skill-card--green { --skill-card-color: hsl(var(--skill-green)); @apply border-skillGreen/20; }
+  .skill-card--purple { --skill-card-color: hsl(var(--skill-purple)); @apply border-skillPurple/20; }
+  .skill-card--orange { --skill-card-color: hsl(var(--skill-orange)); @apply border-skillOrange/20; }
+  .skill-card--red { --skill-card-color: hsl(var(--skill-red)); @apply border-skillRed/20; }
+  .skill-card--teal { --skill-card-color: hsl(var(--skill-teal)); @apply border-skillTeal/20; }
+
+  .education-grid {
+    @apply grid gap-5 lg:grid-cols-[1.35fr_0.65fr];
+  }
+
+  .education-feature {
+    @apply overflow-hidden border-skillBlue/25 bg-card/85 shadow-xl shadow-skillBlue/5;
+    background-image: linear-gradient(135deg, hsl(var(--skill-blue) / 0.1), transparent 55%);
+  }
+
+  .education-support {
+    @apply border-border/80 bg-card/75 shadow-md shadow-black/[0.03];
+  }
+
+  .education-logo {
+    @apply flex size-14 shrink-0 items-center justify-center rounded-xl border bg-white p-2 shadow-sm;
+  }
+
+  .education-logo--featured {
+    @apply size-20 sm:size-24;
+  }
+
+  .education-logo img {
+    @apply h-full w-full object-contain;
+  }
+
+  .certificate-grid {
+    @apply grid gap-5 md:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .certificate-card {
+    @apply overflow-hidden rounded-xl border bg-card/80 shadow-lg shadow-black/[0.04] transition-[border-color,box-shadow,transform] duration-300;
+  }
+
+  .certificate-card--blue { @apply border-skillBlue/20; }
+  .certificate-card--orange { @apply border-skillOrange/20; }
+  .certificate-card--red { @apply border-skillRed/20; }
+
+  .certificate-card__image {
+    @apply flex aspect-[4/3] items-center justify-center border-b bg-white/95 p-3;
+  }
+
+  .certificate-card__image img {
+    @apply h-full w-full object-contain;
+  }
+
+  .certificate-card figcaption {
+    @apply p-4;
+  }
+
+  .certificate-card h4 {
+    @apply text-sm font-semibold leading-5;
+  }
+
+  .certificate-card figcaption p {
+    @apply mt-2 flex flex-wrap gap-1.5 text-xs text-muted-foreground;
+  }
+
+  .contact-panel {
+    @apply grid gap-8 rounded-2xl border border-skillTeal/20 bg-card/80 p-6 shadow-2xl shadow-skillTeal/5 backdrop-blur sm:p-10 lg:grid-cols-[1fr_auto] lg:items-center;
+  }
+
+  /* Kinetic interaction layer: cursor-reactive CSS/SVG capability scene */
+  .hero-title__software { @apply text-skillBlue; }
+  .hero-title__security { @apply text-skillPurple; }
+
+  .capability-scene {
+    --scene-active-color: hsl(var(--skill-blue));
+    --scene-x: 0px; --scene-y: 0px;
+    --scene-build-x: 0px; --scene-build-y: 0px;
+    --scene-automate-x: 0px; --scene-automate-y: 0px;
+    --scene-secure-x: 0px; --scene-secure-y: 0px;
+    --scene-rotate-x: 0deg; --scene-rotate-y: 0deg;
+    @apply relative min-w-0 overflow-hidden border-y border-skillBlue/20 bg-card/55 px-4 py-6 shadow-2xl shadow-skillBlue/[0.06] backdrop-blur sm:rounded-2xl sm:border sm:p-6;
+    background:
+      radial-gradient(circle at 50% 48%, color-mix(in srgb, var(--scene-active-color) 17%, transparent), transparent 44%),
+      linear-gradient(145deg, hsl(var(--skill-blue) / 0.04), transparent 45%, hsl(var(--skill-purple) / 0.04));
+    transition: background-color 320ms ease, border-color 320ms ease, box-shadow 320ms ease;
+  }
+
+  .heading-accent { color: var(--heading-accent); }
+  .heading-accent--blue { --heading-accent: hsl(var(--skill-blue)); }
+  .heading-accent--purple { --heading-accent: hsl(var(--skill-purple)); }
+  .heading-accent--green { --heading-accent: hsl(var(--skill-green)); }
+  .heading-accent--orange { --heading-accent: hsl(var(--skill-orange)); }
+  .heading-accent--teal { --heading-accent: hsl(var(--skill-teal)); }
+  .capability-scene[data-active="automate"] { --scene-active-color: hsl(var(--skill-purple)); @apply border-skillPurple/30; }
+  .capability-scene[data-active="secure"] { --scene-active-color: hsl(var(--skill-orange)); @apply border-skillOrange/30; }
+  .capability-scene::before { content: ""; @apply pointer-events-none absolute inset-x-8 top-0 h-px; background: linear-gradient(90deg, transparent, var(--scene-active-color), transparent); }
+  .capability-scene__heading { @apply relative z-20 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between; }
+  .capability-scene__heading h2 { @apply mt-2 text-xl font-semibold tracking-[-0.02em] sm:text-2xl; }
+  .capability-scene__instruction { @apply font-display text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground; }
+  .capability-scene__stage { @apply relative z-10 mx-auto mt-3 h-[31rem] max-w-[37rem]; perspective: 1100px; transform-style: preserve-3d; transform: rotateX(var(--scene-rotate-x)) rotateY(var(--scene-rotate-y)); transition: transform 180ms ease-out; }
+  .capability-scene__network { @apply pointer-events-none absolute inset-0 h-full w-full; transform: translate3d(var(--scene-x), var(--scene-y), -24px); transition: transform 180ms ease-out; }
+  .capability-scene__network path { fill: none; stroke: color-mix(in srgb, var(--scene-active-color) 42%, hsl(var(--border))); stroke-width: 1.25; stroke-dasharray: 5 8; }
+  .capability-scene__network circle { fill: var(--scene-active-color); filter: drop-shadow(0 0 8px var(--scene-active-color)); }
+  .capability-object { --object-color: hsl(var(--skill-blue)); @apply absolute z-10 block overflow-visible rounded-xl border bg-card/85 p-3 text-left text-foreground outline-none backdrop-blur transition-[opacity,transform,border-color,box-shadow] duration-300; width: min(15.75rem, 44%); min-height: 12.5rem; border-color: color-mix(in srgb, var(--object-color) 28%, hsl(var(--border))); box-shadow: 0 18px 42px hsl(222 60% 3% / 0.16), inset 2px 0 0 color-mix(in srgb, var(--object-color) 70%, transparent); transform: translate3d(var(--object-x, 0), var(--object-y, 0), 0); }
+  .capability-object.capability-object--build { --object-color: hsl(var(--skill-blue)); --object-x: var(--scene-build-x); --object-y: var(--scene-build-y); left: 2%; top: 4%; }
+  .capability-object.capability-object--automate { --object-color: hsl(var(--skill-purple)); --object-x: var(--scene-automate-x); --object-y: var(--scene-automate-y); right: 2%; top: 4%; }
+  .capability-object.capability-object--secure { --object-color: hsl(var(--skill-orange)); --object-x: var(--scene-secure-x); --object-y: var(--scene-secure-y); bottom: 1%; left: 50%; transform: translate3d(calc(-50% + var(--object-x)), var(--object-y), 0); }
+  .capability-object:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 4px; }
+  .capability-object[aria-pressed="true"] { border-color: color-mix(in srgb, var(--object-color) 70%, transparent); box-shadow: 0 24px 60px color-mix(in srgb, var(--object-color) 18%, transparent), inset 2px 0 0 var(--object-color); z-index: 20; }
+  .capability-object--build[aria-pressed="true"], .capability-object--automate[aria-pressed="true"] { transform: translate3d(var(--object-x), calc(var(--object-y) - 4px), 54px) scale(1.025); }
+  .capability-object--secure[aria-pressed="true"] { transform: translate3d(calc(-50% + var(--object-x)), calc(var(--object-y) - 4px), 54px) scale(1.025); }
+  .capability-scene[data-active]:not([data-active="none"]) .capability-object:not([aria-pressed="true"]) { opacity: 0.64; filter: saturate(0.72); }
+  .capability-object__visual { @apply relative block h-20 overflow-hidden rounded-lg border bg-background/55; border-color: color-mix(in srgb, var(--object-color) 22%, hsl(var(--border))); }
+  .capability-object__copy { @apply mt-3 block; }
+  .capability-object__label { @apply flex items-center gap-2 font-display text-xs font-bold uppercase tracking-[0.16em]; color: var(--object-color); }
+  .capability-object__label svg { @apply size-4; }
+  .capability-object__phrase { @apply mt-2 block text-xs font-medium leading-5; }
+  .capability-object__tools { @apply mt-2.5 flex flex-wrap gap-1.5; }
+  .capability-object__tools > span { @apply rounded-full border bg-background/60 px-2 py-0.5 text-[0.58rem] font-medium text-muted-foreground; border-color: color-mix(in srgb, var(--object-color) 24%, hsl(var(--border))); }
+  .build-frames { @apply absolute inset-0; }
+  .build-frames > span { @apply absolute rounded border; border-color: color-mix(in srgb, var(--skill-blue) 52%, transparent); background: hsl(var(--skill-blue) / 0.05); }
+  .build-frames > span:nth-child(1) { inset: 0.8rem 3.3rem 2.4rem 0.8rem; }
+  .build-frames > span:nth-child(2) { inset: 1.45rem 2.2rem 1.75rem 1.65rem; }
+  .build-frames > span:nth-child(3) { inset: 2.1rem 1rem 0.85rem 2.55rem; @apply flex items-center gap-1 px-2; box-shadow: 0 0 22px hsl(var(--skill-blue) / 0.16); }
+  .build-frames i { @apply h-1.5 flex-1 rounded-full bg-skillBlue/35; }
+  .automation-rails { @apply absolute inset-0; }
+  .automation-rails > span { @apply absolute top-1/2 size-4 -translate-y-1/2 rounded-full border border-skillPurple/60 bg-background shadow-[0_0_14px_hsl(var(--skill-purple)/0.24)]; }
+  .automation-rails > span:nth-child(1) { left: 12%; } .automation-rails > span:nth-child(2) { left: 44%; } .automation-rails > span:nth-child(3) { right: 12%; }
+  .automation-rails i { @apply absolute top-1/2 h-px -translate-y-1/2 bg-skillPurple/45; width: 27%; }
+  .automation-rails i:nth-of-type(1) { left: 18%; } .automation-rails i:nth-of-type(2) { right: 18%; }
+  .automation-rails::after { content: ""; @apply absolute left-[12%] top-1/2 size-2 -translate-y-1/2 rounded-full bg-skillPurple; box-shadow: 0 0 14px hsl(var(--skill-purple) / 0.55); animation: rail-travel 4.8s ease-in-out infinite; }
+  .security-orbit { @apply absolute inset-0 flex items-center justify-center; }
+  .security-orbit > span { @apply absolute rounded-full border border-skillOrange/30; }
+  .security-orbit > span:nth-child(1) { @apply size-16; } .security-orbit > span:nth-child(2) { @apply size-12; } .security-orbit > span:nth-child(3) { @apply size-7 border-skillOrange/60 bg-skillOrange/10; }
+  .security-orbit svg { @apply relative z-10 size-4 text-skillOrange; }
+  .security-orbit::after { content: ""; @apply absolute h-px w-8 origin-left bg-skillOrange/65; transform: translateX(1rem) rotate(-38deg); animation: radar-sweep 7s linear infinite; }
+
+  /* Kinetic interaction layer: contained seamless capability reel */
+  .capability-reel { @apply relative overflow-hidden border-b border-t bg-background/55 py-1.5 outline-none; }
+  .capability-reel:focus-visible { box-shadow: inset 0 0 0 2px hsl(var(--ring)); }
+  .capability-reel__viewport { @apply relative overflow-hidden; mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent); }
+  .capability-reel__track { @apply flex w-max will-change-transform; }
+  .capability-reel__track--front { opacity: 0.56; animation: reel-loop 134.4s linear infinite; }
+  .capability-reel__group { @apply flex shrink-0 items-center; padding-right: 1.5rem; }
+  .capability-reel__item { @apply flex shrink-0 items-center gap-2 px-4 font-display text-[0.6rem] font-semibold uppercase tracking-[0.18em] sm:px-5 sm:text-[0.65rem]; color: var(--reel-color); }
+  .capability-reel__item > span { @apply size-1 rounded-full; background: var(--reel-color); box-shadow: 0 0 7px color-mix(in srgb, var(--reel-color) 45%, transparent); }
+  .capability-reel__item--blue { --reel-color: hsl(var(--skill-blue)); }
+  .capability-reel__item--purple { --reel-color: hsl(var(--skill-purple)); }
+  .capability-reel__item--orange { --reel-color: hsl(var(--skill-orange)); }
+  .capability-reel__item--teal { --reel-color: hsl(var(--skill-teal)); }
+  .capability-reel__item--green { --reel-color: hsl(var(--skill-green)); }
+  .capability-reel__item--red { --reel-color: hsl(var(--skill-red)); }
+  .capability-reel:hover .capability-reel__track, .capability-reel:focus-within .capability-reel__track { animation-play-state: paused; }
+
+  /* Kinetic interaction layer: draggable MINGTO product gallery */
+  .project-section { --project-glow: hsl(var(--skill-orange)); }
+  .project-section[data-gallery-active="report"] { --project-glow: hsl(46 82% 52%); }
+  .project-section[data-gallery-active="oracle"] { --project-glow: hsl(345 72% 58%); }
+  .project-section__glow { left: auto; right: -14rem; top: 20rem; background: var(--project-glow); transition: background-color 500ms ease; }
+  .kinetic-gallery { @apply relative min-w-0; }
+  .kinetic-gallery::before { content: ""; @apply pointer-events-none absolute -inset-5 -z-10 rounded-full blur-3xl; background: color-mix(in srgb, var(--project-glow) 12%, transparent); transition: background-color 500ms ease; }
+  .kinetic-gallery__tabs { @apply mx-auto mb-5 grid max-w-lg grid-cols-3 rounded-xl border bg-background/60 p-1 shadow-sm backdrop-blur; }
+  .kinetic-gallery__tabs button { @apply flex min-w-0 items-center justify-center gap-2 rounded-lg px-2 py-2.5 font-display text-xs font-semibold text-muted-foreground outline-none transition-[background-color,color,box-shadow] focus-visible:ring-2 focus-visible:ring-ring; }
+  .kinetic-gallery__tabs button > span { @apply text-[0.55rem] tracking-[0.12em] opacity-65; }
+  .kinetic-gallery__tabs button[aria-pressed="true"] { @apply bg-card text-foreground shadow-md; box-shadow: inset 0 -2px 0 var(--project-glow), 0 8px 20px hsl(222 55% 3% / 0.08); }
+  .kinetic-gallery__viewport { @apply min-w-0 overflow-hidden rounded-xl py-3 outline-none; cursor: grab; touch-action: pan-y pinch-zoom; }
+  .kinetic-gallery__viewport:active { cursor: grabbing; }
+  .kinetic-gallery__viewport:focus-visible { box-shadow: 0 0 0 2px hsl(var(--ring)), 0 0 0 5px hsl(var(--background)); }
+  .kinetic-gallery__track { @apply flex min-w-0 items-center; }
+  .kinetic-gallery__slide { @apply min-w-0 shrink-0 px-3 transition-[opacity,transform,filter] duration-500; flex-basis: 80%; opacity: 0.4; filter: saturate(0.62); transform: scale(0.88); }
+  .kinetic-gallery__slide[aria-current="true"] { @apply opacity-100; filter: saturate(1); transform: scale(1); z-index: 2; }
+  .kinetic-gallery__figure { @apply overflow-hidden rounded-xl border bg-background/75 shadow-xl shadow-black/10; border-color: color-mix(in srgb, var(--project-glow) 30%, hsl(var(--border))); transition: border-color 500ms ease, box-shadow 500ms ease; }
+  .kinetic-gallery__slide[aria-current="true"] .kinetic-gallery__figure { box-shadow: 0 26px 64px hsl(222 60% 2% / 0.28), 0 0 30px color-mix(in srgb, var(--project-glow) 10%, transparent); }
+  .kinetic-gallery__image { @apply overflow-hidden border-b bg-black/5; aspect-ratio: 1900 / 904; }
+  .kinetic-gallery__image img { @apply block h-full w-full select-none object-contain; pointer-events: none; }
+  .kinetic-gallery__figure figcaption { @apply flex flex-col gap-1 px-4 py-3; }
+  .kinetic-gallery__figure figcaption span { @apply font-display text-sm font-semibold; }
+  .kinetic-gallery__figure figcaption small { @apply text-xs text-muted-foreground; }
+  .kinetic-gallery__controls { @apply mt-3 flex items-center justify-center gap-3; }
+  .kinetic-gallery__controls > button { @apply flex size-9 items-center justify-center rounded-full border bg-background/70 text-muted-foreground transition-[border-color,color,transform] hover:border-skillOrange/45 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring; }
+  .kinetic-gallery__controls > button svg { @apply size-4; }
+  .kinetic-gallery__controls > p { @apply min-w-28 text-center font-display text-xs font-semibold text-muted-foreground; }
+  .kinetic-gallery__controls > p span { color: var(--project-glow); }
+
+  /* Phase 1D: warm product accent without enclosing the case study */
+  .project-case { @apply relative; }
+  .project-overview { @apply grid min-w-0 items-center gap-10 lg:grid-cols-[0.68fr_1.32fr]; }
+  .project-narrative { @apply relative border-l border-skillOrange/45 py-2 pl-5 sm:pl-7; }
+  .project-home-shot { @apply relative transition-[border-color,box-shadow] duration-300 lg:-mr-8 lg:translate-y-3; box-shadow: 0 28px 70px hsl(222 60% 2% / 0.28), -18px 18px 0 -17px hsl(var(--skill-orange) / 0.58); }
+  .project-collage { @apply mt-16 grid gap-7 lg:grid-cols-[1.18fr_0.82fr] lg:items-start; }
+  .project-collage .project-shot--report { @apply lg:-ml-5; }
+  .project-collage .project-shot--oracle { @apply lg:mr-6 lg:mt-20; }
+  .project-evidence { @apply mt-20 border-y border-x-0 px-0 sm:px-0 lg:px-0; }
+
+  /* Hybrid skill tree: connected capability core on desktop, direct feedback elsewhere. */
+  .interactive-skills { --selected-skill-color: hsl(var(--skill-blue)); @apply min-w-0; }
+  .interactive-skills[data-selected="frontend"] { --selected-skill-color: hsl(var(--skill-teal)); }
+  .interactive-skills[data-selected="backend"] { --selected-skill-color: hsl(var(--skill-green)); }
+  .interactive-skills[data-selected="security"] { --selected-skill-color: hsl(var(--skill-orange)); }
+  .interactive-skills[data-selected="automation"] { --selected-skill-color: hsl(var(--skill-purple)); }
+  .interactive-skills[data-selected="creative"] { --selected-skill-color: hsl(var(--skill-red)); }
+
+  .skill-tree__desktop,
+  .skill-tree__tablet { @apply hidden; }
+  .skill-tree__mobile { @apply grid gap-4; }
+
+  .skill-tree-card {
+    --skill-category-color: hsl(var(--skill-blue));
+    @apply relative flex min-w-0 cursor-pointer flex-col overflow-hidden rounded-2xl border p-5 text-left text-foreground outline-none transition-[border-color,box-shadow,transform,background-color] sm:p-5;
+    border-color: color-mix(in srgb, var(--skill-category-color) 36%, hsl(var(--border)));
+    background:
+      radial-gradient(circle at 96% 0%, color-mix(in srgb, var(--skill-category-color) 24%, transparent), transparent 42%),
+      linear-gradient(145deg, color-mix(in srgb, var(--skill-category-color) 12%, hsl(var(--card))), hsl(var(--card)) 68%);
+    box-shadow: inset 0 2px 0 color-mix(in srgb, var(--skill-category-color) 55%, transparent), 0 15px 34px hsl(222 55% 3% / 0.07);
+  }
+  .skill-tree-card--teal { --skill-category-color: hsl(var(--skill-teal)); }
+  .skill-tree-card--green { --skill-category-color: hsl(var(--skill-green)); }
+  .skill-tree-card--orange { --skill-category-color: hsl(var(--skill-orange)); }
+  .skill-tree-card--purple { --skill-category-color: hsl(var(--skill-purple)); }
+  .skill-tree-card--red { --skill-category-color: hsl(var(--skill-red)); }
+  .skill-tree-card:focus-visible { outline: 3px solid hsl(var(--ring)); outline-offset: 3px; }
+  .skill-tree-card[aria-pressed="true"] {
+    border-color: color-mix(in srgb, var(--skill-category-color) 84%, transparent);
+    background:
+      radial-gradient(circle at 96% 0%, color-mix(in srgb, var(--skill-category-color) 38%, transparent), transparent 48%),
+      linear-gradient(145deg, color-mix(in srgb, var(--skill-category-color) 22%, hsl(var(--card))), hsl(var(--card)) 74%);
+    box-shadow: inset 0 3px 0 var(--skill-category-color), 0 20px 48px color-mix(in srgb, var(--skill-category-color) 19%, transparent);
+  }
+  .skill-tree-card__topline { @apply flex items-center justify-between gap-3 font-display text-[0.65rem] font-bold uppercase tracking-[0.18em]; color: var(--skill-category-color); }
+  .skill-tree-card__node { @apply size-2.5 rounded-full border; border-color: var(--skill-category-color); box-shadow: 0 0 0 4px color-mix(in srgb, var(--skill-category-color) 12%, transparent), 0 0 16px color-mix(in srgb, var(--skill-category-color) 38%, transparent); }
+  .skill-tree-card__title { @apply mt-2.5 block font-display text-base font-bold leading-5 tracking-[-0.015em] sm:text-lg; color: color-mix(in srgb, var(--skill-category-color) 82%, hsl(var(--foreground))); }
+  .skill-tree-card__chips { @apply mt-3 flex flex-wrap gap-1.5; }
+  .skill-tree-card__chips > span { @apply rounded-full border bg-background/55 px-2.5 py-1 text-[0.68rem] font-medium leading-4; border-color: color-mix(in srgb, var(--skill-category-color) 33%, hsl(var(--border))); }
+  .skill-tree-card__action { @apply mt-auto flex items-center justify-between gap-3 rounded-lg border px-2.5 py-1.5 font-display text-[0.68rem] font-semibold uppercase tracking-[0.1em]; border-color: color-mix(in srgb, var(--skill-category-color) 34%, hsl(var(--border))); background: color-mix(in srgb, var(--skill-category-color) 7%, hsl(var(--background))); color: var(--skill-category-color); }
+  .skill-tree-card__action svg { @apply size-3.5 transition-transform; }
+  .skill-tree-card[aria-pressed="true"] .skill-tree-card__action svg { transform: rotate(45deg); }
+  .skill-tree-card__inline-detail { @apply mt-4 block border-t pt-4 text-sm leading-6 text-muted-foreground; border-color: color-mix(in srgb, var(--skill-category-color) 32%, hsl(var(--border))); }
+  .skill-tree-card__inline-detail > span { @apply block; }
+  .skill-tree-card__inline-label { @apply mb-1 mt-3 font-display text-[0.65rem] font-bold uppercase tracking-[0.16em]; color: var(--skill-category-color); }
+
+  .skill-core {
+    --skill-core-color: hsl(var(--skill-blue));
+    @apply relative z-10 flex min-w-0 items-center justify-center overflow-hidden rounded-[2rem] border bg-card/80 p-7 text-center backdrop-blur;
+    min-height: 30rem;
+    border-color: color-mix(in srgb, var(--skill-core-color) 52%, hsl(var(--border)));
+    background:
+      radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--skill-core-color) 19%, transparent), transparent 46%),
+      linear-gradient(145deg, color-mix(in srgb, var(--skill-core-color) 8%, hsl(var(--card))), hsl(var(--card)) 72%);
+    box-shadow: inset 0 0 60px color-mix(in srgb, var(--skill-core-color) 8%, transparent), 0 24px 70px hsl(222 60% 3% / 0.13);
+  }
+  .skill-core--teal { --skill-core-color: hsl(var(--skill-teal)); }
+  .skill-core--green { --skill-core-color: hsl(var(--skill-green)); }
+  .skill-core--orange { --skill-core-color: hsl(var(--skill-orange)); }
+  .skill-core--purple { --skill-core-color: hsl(var(--skill-purple)); }
+  .skill-core--red { --skill-core-color: hsl(var(--skill-red)); }
+  .skill-core__rings { @apply pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[92%] -translate-x-1/2 -translate-y-1/2 rounded-full border opacity-70; border-color: color-mix(in srgb, var(--skill-core-color) 35%, transparent); }
+  .skill-core__rings::before,
+  .skill-core__rings::after,
+  .skill-core__rings i { content: ""; @apply absolute left-1/2 top-1/2 aspect-square -translate-x-1/2 -translate-y-1/2 rounded-full border; border-color: color-mix(in srgb, var(--skill-core-color) 23%, transparent); }
+  .skill-core__rings::before { width: 78%; }
+  .skill-core__rings::after { width: 55%; }
+  .skill-core__rings i:nth-child(1) { @apply left-[8%] top-[25%] size-2 translate-x-0 translate-y-0 border-0; background: var(--skill-core-color); box-shadow: 0 0 18px var(--skill-core-color); }
+  .skill-core__rings i:nth-child(2) { @apply bottom-[16%] left-auto right-[12%] top-auto size-1.5 translate-x-0 translate-y-0 border-0; background: var(--skill-core-color); }
+  .skill-core__rings i:nth-child(3) { @apply hidden; }
+  .skill-core__content { @apply relative z-10 mx-auto max-w-sm; }
+  .skill-core__eyebrow { @apply font-display text-[0.65rem] font-bold uppercase tracking-[0.17em]; color: var(--skill-core-color); }
+  .skill-core__eyebrow span { @apply mr-2 inline-flex size-8 items-center justify-center rounded-full border bg-background/70; border-color: color-mix(in srgb, var(--skill-core-color) 55%, transparent); }
+  .skill-core h3 { @apply mt-4 text-2xl font-bold leading-tight tracking-[-0.03em]; }
+  .skill-core__summary { @apply mx-auto mt-3 max-w-xs text-sm leading-6 text-muted-foreground; }
+  .skill-core__tags { @apply mt-4 flex flex-wrap justify-center gap-1.5; }
+  .skill-core__tags span { @apply rounded-full border bg-background/65 px-2.5 py-1 text-[0.65rem] font-semibold; border-color: color-mix(in srgb, var(--skill-core-color) 38%, hsl(var(--border))); color: color-mix(in srgb, var(--skill-core-color) 80%, hsl(var(--foreground))); }
+  .skill-core__evidence { @apply mx-auto mt-5 max-w-xs border-t pt-4; border-color: color-mix(in srgb, var(--skill-core-color) 30%, hsl(var(--border))); }
+  .skill-core__evidence p:first-child { @apply font-display text-[0.62rem] font-bold uppercase tracking-[0.16em]; color: var(--skill-core-color); }
+  .skill-core__evidence p:last-child { @apply mt-2 text-xs leading-5 text-muted-foreground; }
+  .skill-core__nodes { @apply mt-4 flex flex-wrap justify-center gap-2; }
+  .skill-core__nodes span { @apply relative rounded-md border bg-card/80 px-2 py-1 text-[0.65rem] font-medium shadow-sm; border-color: color-mix(in srgb, var(--skill-core-color) 33%, hsl(var(--border))); }
+  .skill-core--compact { @apply min-h-0 rounded-2xl p-6 sm:p-8; }
+
+  /* Phase 1D: employer-identity alternating timeline */
+  .timeline-list { @apply relative mx-auto max-w-6xl space-y-10; }
+  .timeline-list::before { content: none; }
+  .timeline-entry { --timeline-color: hsl(var(--skill-blue)); @apply relative grid min-w-0 gap-3; }
+  .timeline-entry--blue { --timeline-color: hsl(var(--skill-blue)); }
+  .timeline-entry--purple { --timeline-color: hsl(var(--skill-purple)); }
+  .timeline-entry--orange { --timeline-color: hsl(var(--skill-orange)); }
+  .timeline-entry--teal { --timeline-color: hsl(var(--skill-teal)); }
+  .timeline-identity { @apply flex items-center gap-3; }
+  .timeline-marker { @apply z-10 flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border bg-white p-1.5 shadow-lg; border-color: color-mix(in srgb, var(--timeline-color) 58%, transparent); color: var(--timeline-color); box-shadow: 0 0 20px color-mix(in srgb, var(--timeline-color) 17%, transparent); }
+  .timeline-marker img { @apply h-full w-full object-contain; }
+  .timeline-marker > span { @apply font-display text-[0.68rem] font-bold tracking-[0.05em]; }
+  .timeline-year { @apply font-display text-xs font-bold tracking-[0.16em]; color: var(--timeline-color); }
+  .timeline-card { @apply relative overflow-hidden border-y border-r border-l-2 bg-card/70 p-5 shadow-lg shadow-black/[0.04] backdrop-blur sm:rounded-xl sm:border sm:p-6; border-left-color: var(--timeline-color); }
+  .timeline-card--prominent { background-image: linear-gradient(120deg, color-mix(in srgb, var(--timeline-color) 10%, transparent), transparent 48%); box-shadow: 0 20px 55px color-mix(in srgb, var(--timeline-color) 7%, transparent); }
+  .timeline-card__heading { @apply flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-5; }
+  .timeline-card__heading h3 { @apply text-xl font-bold sm:text-2xl; }
+  .timeline-card__role { @apply mt-1 font-medium; }
+  .timeline-card__date { @apply shrink-0 text-sm font-medium text-muted-foreground; }
+  .timeline-card__highlights { @apply mt-5 space-y-2.5 text-sm leading-6 text-muted-foreground; }
+  .timeline-card__highlights li { @apply flex gap-3; }
+  .timeline-card__highlights li > span { @apply mt-2.5 size-1.5 shrink-0 rounded-full; background: var(--timeline-color); }
+  .timeline-tools { @apply mt-6 border-t pt-5; }
+  .timeline-tools > h4 { @apply text-sm font-semibold; }
+  .timeline-tools__groups { @apply mt-3 grid gap-4; }
+  .timeline-tools h5 { @apply text-[0.65rem] font-bold uppercase tracking-[0.13em] text-muted-foreground; }
+  .timeline-tools ul { @apply mt-2 flex flex-wrap gap-2; }
+}
+
+@media (min-width: 640px) and (max-width: 1149px) {
+  .skill-tree__mobile { display: none; }
+  .skill-tree__tablet { display: block; }
+  .skill-tree__tablet-grid { @apply grid grid-cols-2 gap-5; }
+  .skill-tree__tablet-grid > .skill-core { grid-column: 1 / -1; }
+  .skill-tree__tablet-grid > .skill-tree-card { min-height: 16rem; }
+}
+
+@media (min-width: 1150px) {
+  .skill-tree__mobile,
+  .skill-tree__tablet { display: none; }
+  .skill-tree__desktop {
+    @apply relative grid items-stretch gap-9;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.94fr) minmax(0, 1fr);
+    min-height: 29.5rem;
+  }
+  .skill-tree__connections { @apply pointer-events-none absolute inset-0 z-0 h-full w-full overflow-visible; }
+  .skill-connection { --connection-color: hsl(var(--skill-blue)); fill: none; stroke: var(--connection-color); stroke-width: 1.35; stroke-linecap: round; opacity: 0.28; transition: opacity 180ms ease, stroke-width 180ms ease, filter 180ms ease; }
+  .skill-connection--teal { --connection-color: hsl(var(--skill-teal)); }
+  .skill-connection--green { --connection-color: hsl(var(--skill-green)); }
+  .skill-connection--orange { --connection-color: hsl(var(--skill-orange)); }
+  .skill-connection--purple { --connection-color: hsl(var(--skill-purple)); }
+  .skill-connection--red { --connection-color: hsl(var(--skill-red)); }
+  .skill-connection[data-active="true"] { opacity: 1; stroke-width: 3.2; filter: drop-shadow(0 0 7px var(--connection-color)); }
+  .skill-tree__column { @apply relative z-10 grid min-w-0 grid-rows-3 gap-2.5; }
+  .skill-tree__column .skill-tree-card { @apply h-full p-3; min-height: 0; }
+  .skill-tree__column .skill-tree-card__topline { @apply text-[0.58rem]; }
+  .skill-tree__column .skill-tree-card__title { @apply mt-1.5 text-[0.92rem]; }
+  .skill-tree__column .skill-tree-card__chips { @apply mt-1.5 gap-1; }
+  .skill-tree__column .skill-tree-card__chips > span { @apply px-1.5 py-0 text-[0.59rem]; }
+  .skill-tree__column .skill-tree-card__action { @apply mt-auto px-2 py-1 text-[0.58rem]; }
+  .skill-tree__desktop > .skill-core { min-height: 29.5rem; }
+  .skill-tree__desktop .skill-core { @apply p-5; }
+  .skill-tree__desktop .skill-core h3 { @apply mt-3 text-[1.35rem]; }
+  .skill-tree__desktop .skill-core__summary { @apply mt-2; }
+  .skill-tree__desktop .skill-core__tags { @apply mt-3; }
+  .skill-tree__desktop .skill-core__evidence { @apply mt-4 pt-3; }
+  .skill-tree__desktop .skill-core__nodes { @apply mt-3; }
+}
+
+@media (min-width: 900px) {
+  .timeline-list { @apply space-y-4; }
+  .timeline-list::before {
+    content: "";
+    @apply absolute bottom-7 left-1/2 top-7 w-px -translate-x-1/2;
+    background: linear-gradient(to bottom, hsl(var(--skill-blue) / 0.65), hsl(var(--skill-purple) / 0.58), hsl(var(--skill-orange) / 0.5), hsl(var(--skill-teal) / 0.55));
+  }
+  .timeline-entry { grid-template-columns: minmax(0, 1fr) 5.5rem minmax(0, 1fr); align-items: start; gap: 0; }
+  .timeline-identity { grid-column: 2; grid-row: 1; z-index: 2; flex-direction: column; gap: 0.45rem; justify-self: center; }
+  .timeline-entry--left .timeline-card { grid-column: 1; grid-row: 1; margin-right: 0.25rem; }
+  .timeline-entry--right .timeline-card { grid-column: 3; grid-row: 1; margin-left: 0.25rem; }
+}
+
+@media (max-width: 639px) {
+  .capability-scene__stage { @apply grid h-auto gap-3; perspective: none; transform: none !important; }
+  .capability-scene__network { @apply hidden; }
+  .capability-object, .capability-object.capability-object--build, .capability-object.capability-object--automate, .capability-object.capability-object--secure,
+  .capability-object[aria-pressed="true"], .capability-scene[data-active]:not([data-active="none"]) .capability-object:not([aria-pressed="true"]) { @apply relative inset-auto w-full; min-height: 0; opacity: 1; filter: none; transform: none; }
+  .capability-object__visual { @apply h-16; }
+  .kinetic-gallery .kinetic-gallery__slide { flex-basis: 90%; @apply px-1.5; }
+  .kinetic-gallery__controls { @apply justify-center; }
+  .skill-tree-card { min-height: 0; }
+  .project-home-shot, .project-collage .project-shot--report, .project-collage .project-shot--oracle { transform: none; margin: 0; }
+}
+
+@supports not (transform-style: preserve-3d) {
+  .capability-scene__stage { @apply grid h-auto gap-3; perspective: none; transform: none; }
+  .capability-scene__network { @apply hidden; }
+  .capability-object, .capability-object.capability-object--secure { @apply relative inset-auto w-full; transform: none; }
+}
+
+@media (min-width: 768px) {
+  .workflow-steps__connector {
+    bottom: auto;
+    left: 100%;
+    top: 50%;
+    height: 1px;
+    width: 0.8rem;
+    transform: translateY(-50%);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-home-shot:hover {
+    @apply border-skillOrange/40;
+    box-shadow: 0 32px 78px hsl(222 60% 2% / 0.34), -18px 18px 0 -17px hsl(var(--skill-orange) / 0.8);
+  }
+
+  .project-shot:hover,
+  .experience-card:hover,
+  .skill-card:hover,
+  .certificate-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px hsl(222 50% 3% / 0.12);
+  }
+
+  .project-shot:hover { @apply border-skillBlue/35; }
+  .project-shot--oracle:hover { @apply border-skillOrange/45; }
+  .experience-card:hover { border-color: color-mix(in srgb, var(--experience-color) 38%, transparent); }
+  .skill-card:hover { border-color: color-mix(in srgb, var(--skill-card-color) 38%, transparent); }
+  .skill-tree-card:hover { border-color: color-mix(in srgb, var(--skill-category-color) 68%, transparent); box-shadow: 0 20px 48px color-mix(in srgb, var(--skill-category-color) 13%, transparent); transform: translateY(-2px); }
+}
+
+@keyframes data-pulse {
+  0%, 100% { opacity: 0.45; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+@keyframes rail-travel { 0%, 100% { left: 12%; opacity: 0.45; } 50% { left: calc(88% - 0.5rem); opacity: 1; } }
+@keyframes radar-sweep { to { transform: translateX(1rem) rotate(322deg); } }
+@keyframes reel-loop { to { transform: translateX(-50%); } }
 
 @layer utilities {
   .story-link {
     @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
   }
   .hover-scale { @apply transition-transform duration-200 hover:scale-105; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .capability-reel__track { animation: none !important; transform: none !important; }
 }
