@@ -3,47 +3,28 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
-export type ProjectSlideId = "home" | "report" | "oracle";
+export type ProjectSlide = {
+  id: string;
+  navLabel: string;
+  address: string;
+  title: string;
+  detail: string;
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+};
 
 const AUTOPLAY_DELAY = 7_000;
 
-const slides = [
-  {
-    id: "home" as const,
-    navLabel: "Homepage",
-    address: "MINGTO HK / Home",
-    title: "Product homepage",
-    detail: "Primary product interface",
-    src: "/projects/mingto/mingto-home-desktop.jpg",
-    alt: "MINGTO HK homepage showing the personalised cultural-analysis product interface",
-    width: 1896,
-    height: 903,
-  },
-  {
-    id: "report" as const,
-    navLabel: "Report",
-    address: "MINGTO HK / Report",
-    title: "Report workflow",
-    detail: "Structured calculation and analysis results",
-    src: "/projects/mingto/mingto-report-desktop.jpg",
-    alt: "MINGTO HK structured report workflow displaying personalised analysis results",
-    width: 1900,
-    height: 904,
-  },
-  {
-    id: "oracle" as const,
-    navLabel: "Oracle",
-    address: "MINGTO HK / Oracle",
-    title: "Oracle interaction",
-    detail: "Interactive 3D card experience",
-    src: "/projects/mingto/mingto-oracle-desktop.jpg",
-    alt: "MINGTO HK oracle-card interface showing the interactive 3D experience",
-    width: 1898,
-    height: 901,
-  },
-];
+type KineticProjectGalleryProps = {
+  galleryId: string;
+  label: string;
+  slides: ProjectSlide[];
+  onActiveChange?: (id: string) => void;
+};
 
-export default function KineticProjectGallery({ onActiveChange }: { onActiveChange: (id: ProjectSlideId) => void }) {
+export default function KineticProjectGallery({ galleryId, label, slides, onActiveChange }: KineticProjectGalleryProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const userChangePendingRef = useRef(false);
   const pendingClearTimerRef = useRef<number | null>(null);
@@ -71,12 +52,12 @@ export default function KineticProjectGallery({ onActiveChange }: { onActiveChan
     if (!emblaApi) return;
     const index = emblaApi.selectedScrollSnap();
     setSelectedIndex(index);
-    onActiveChange(slides[index].id);
+    onActiveChange?.(slides[index].id);
     if (userChangePendingRef.current) {
       setAnnouncement(`Showing ${slides[index].navLabel} screenshot, ${index + 1} of ${slides.length}.`);
       userChangePendingRef.current = false;
     }
-  }, [emblaApi, onActiveChange]);
+  }, [emblaApi, onActiveChange, slides]);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -163,7 +144,7 @@ export default function KineticProjectGallery({ onActiveChange }: { onActiveChan
     <div
       ref={rootRef}
       className="kinetic-gallery"
-      aria-label="MINGTO product screenshots"
+      aria-label={`${label} screenshots`}
       data-autoplay={autoplayRunning ? "running" : "paused"}
       onPointerEnter={() => setHovered(true)}
       onPointerLeave={() => setHovered(false)}
@@ -172,13 +153,13 @@ export default function KineticProjectGallery({ onActiveChange }: { onActiveChan
         if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocusWithin(false);
       }}
     >
-      <div className="kinetic-gallery__tabs" aria-label="Select MINGTO product view">
+      <div className="kinetic-gallery__tabs" aria-label={`Select ${label} view`}>
         {slides.map((slide, index) => (
           <button
             key={slide.id}
             type="button"
             aria-pressed={selectedIndex === index}
-            aria-controls={`mingto-slide-${slide.id}`}
+            aria-controls={`${galleryId}-slide-${slide.id}`}
             onClick={() => selectSlide(index)}
           >
             <span>{String(index + 1).padStart(2, "0")}</span>{slide.navLabel}
@@ -197,7 +178,7 @@ export default function KineticProjectGallery({ onActiveChange }: { onActiveChan
       >
         <div className="kinetic-gallery__track">
           {slides.map((slide, index) => (
-            <div id={`mingto-slide-${slide.id}`} key={slide.id} className={`kinetic-gallery__slide kinetic-gallery__slide--${slide.id}`} role="group" aria-label={`${index + 1} of ${slides.length}: ${slide.title}`} aria-current={selectedIndex === index}>
+            <div id={`${galleryId}-slide-${slide.id}`} key={slide.id} className={`kinetic-gallery__slide kinetic-gallery__slide--${slide.id}`} role="group" aria-label={`${index + 1} of ${slides.length}: ${slide.title}`} aria-current={selectedIndex === index}>
               <figure className="kinetic-gallery__figure">
                 <div className="browser-frame__bar" aria-hidden="true"><span /><span /><span /><span className="browser-frame__address">{slide.address}</span></div>
                 <div className="kinetic-gallery__image">
@@ -211,9 +192,9 @@ export default function KineticProjectGallery({ onActiveChange }: { onActiveChan
       </div>
 
       <div className="kinetic-gallery__controls">
-        <button type="button" onClick={() => moveSlide("previous")} aria-label="Previous MINGTO screenshot"><ChevronLeft aria-hidden="true" /></button>
+        <button type="button" onClick={() => moveSlide("previous")} aria-label={`Previous ${label} screenshot`}><ChevronLeft aria-hidden="true" /></button>
         <p><span>{String(selectedIndex + 1).padStart(2, "0")}</span> / {String(slides.length).padStart(2, "0")} · {slides[selectedIndex].navLabel}</p>
-        <button type="button" onClick={() => moveSlide("next")} aria-label="Next MINGTO screenshot"><ChevronRight aria-hidden="true" /></button>
+        <button type="button" onClick={() => moveSlide("next")} aria-label={`Next ${label} screenshot`}><ChevronRight aria-hidden="true" /></button>
       </div>
       <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</p>
     </div>

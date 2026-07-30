@@ -11,6 +11,7 @@ import CapabilityReel from "@/components/CapabilityReel";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import InteractiveSkills from "@/components/InteractiveSkills";
+import InteractiveMonogram from "@/components/InteractiveMonogram";
 import { portfolioLinks, siteUrl } from "@/config/portfolio";
 
 const pageTitle = "Teddy Yiu — Software Developer & Security Automation Builder";
@@ -109,6 +110,8 @@ const Index = () => {
         <CapabilityReel />
 
         <FeaturedProjects />
+
+        <InteractiveMonogram />
 
         <section id="experience" aria-labelledby="experience-title" className="section-grid relative scroll-mt-20 overflow-hidden border-y bg-muted/20 py-20 sm:py-24">
           <div className="section-glow section-glow--purple" aria-hidden="true" />

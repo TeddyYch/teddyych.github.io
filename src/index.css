@@ -136,6 +136,8 @@ All colors MUST be HSL.
   .section-heading { --section-heading-start: hsl(var(--skill-blue)); --section-heading-end: transparent; @apply leading-[1.08] tracking-[-0.03em]; }
   .section-heading::after { content: ""; @apply mt-4 block h-0.5 w-14 rounded-full; background: linear-gradient(90deg, var(--section-heading-start), var(--section-heading-end)); }
   .section-heading--project { --section-heading-start: hsl(var(--skill-orange)); --section-heading-end: hsl(var(--skill-blue) / 0.15); }
+  .section-heading--stock { --section-heading-start: hsl(var(--skill-blue)); --section-heading-end: hsl(var(--skill-purple) / 0.45); }
+  .section-heading--identity { --section-heading-start: hsl(var(--skill-purple)); --section-heading-end: hsl(var(--skill-blue) / 0.45); }
   .section-heading--experience { --section-heading-start: hsl(var(--skill-blue)); --section-heading-end: hsl(var(--skill-purple) / 0.45); }
   .section-heading--skills { --section-heading-start: hsl(var(--skill-purple)); --section-heading-end: hsl(var(--skill-teal) / 0.4); }
   .section-heading--education { --section-heading-start: hsl(var(--skill-green)); }
@@ -282,6 +284,8 @@ All colors MUST be HSL.
   .status-chip--orange {
     @apply border-skillOrange/35 bg-skillOrange/10 text-skillOrange;
   }
+
+  .heading-accent--blue { color: hsl(var(--skill-blue)); }
 
   .project-detail__label {
     @apply font-display text-xs font-bold uppercase tracking-[0.16em] text-skillBlue;
@@ -584,10 +588,13 @@ All colors MUST be HSL.
   .capability-reel__item--red { --reel-color: hsl(var(--skill-red)); }
   .capability-reel:hover .capability-reel__track, .capability-reel:focus-within .capability-reel__track { animation-play-state: paused; }
 
-  /* Kinetic interaction layer: draggable MINGTO product gallery */
+  /* Kinetic interaction layer: shared draggable project galleries */
   .project-section { --project-glow: hsl(var(--skill-orange)); }
   .project-section[data-gallery-active="report"] { --project-glow: hsl(46 82% 52%); }
   .project-section[data-gallery-active="oracle"] { --project-glow: hsl(345 72% 58%); }
+  .project-section--stock { --project-glow: hsl(var(--skill-blue)); }
+  .project-section--stock[data-gallery-active="news"] { --project-glow: hsl(var(--skill-purple)); }
+  .project-section--stock[data-gallery-active="research"] { --project-glow: hsl(249 82% 66%); }
   .project-section__glow { left: auto; right: -14rem; top: 20rem; background: var(--project-glow); transition: background-color 500ms ease; }
   .kinetic-gallery { @apply relative min-w-0; }
   .kinetic-gallery::before { content: ""; @apply pointer-events-none absolute -inset-5 -z-10 rounded-full blur-3xl; background: color-mix(in srgb, var(--project-glow) 12%, transparent); transition: background-color 500ms ease; }
@@ -609,7 +616,8 @@ All colors MUST be HSL.
   .kinetic-gallery__figure figcaption span { @apply font-display text-sm font-semibold; }
   .kinetic-gallery__figure figcaption small { @apply text-xs text-muted-foreground; }
   .kinetic-gallery__controls { @apply mt-3 flex items-center justify-center gap-3; }
-  .kinetic-gallery__controls > button { @apply flex size-9 items-center justify-center rounded-full border bg-background/70 text-muted-foreground transition-[border-color,color,transform] hover:border-skillOrange/45 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring; }
+  .kinetic-gallery__controls > button { @apply flex size-9 items-center justify-center rounded-full border bg-background/70 text-muted-foreground transition-[border-color,color,transform] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring; }
+  .kinetic-gallery__controls > button:hover { border-color: color-mix(in srgb, var(--project-glow) 48%, hsl(var(--border))); }
   .kinetic-gallery__controls > button svg { @apply size-4; }
   .kinetic-gallery__controls > p { @apply min-w-28 text-center font-display text-xs font-semibold text-muted-foreground; }
   .kinetic-gallery__controls > p span { color: var(--project-glow); }
@@ -618,11 +626,50 @@ All colors MUST be HSL.
   .project-case { @apply relative; }
   .project-overview { @apply grid min-w-0 items-center gap-10 lg:grid-cols-[0.68fr_1.32fr]; }
   .project-narrative { @apply relative border-l border-skillOrange/45 py-2 pl-5 sm:pl-7; }
+  .project-narrative--stock { border-left-color: hsl(var(--skill-blue) / 0.48); }
+  .project-capability-dot { background: var(--project-glow); box-shadow: 0 0 10px color-mix(in srgb, var(--project-glow) 42%, transparent); }
   .project-home-shot { @apply relative transition-[border-color,box-shadow] duration-300 lg:-mr-8 lg:translate-y-3; box-shadow: 0 28px 70px hsl(222 60% 2% / 0.28), -18px 18px 0 -17px hsl(var(--skill-orange) / 0.58); }
   .project-collage { @apply mt-16 grid gap-7 lg:grid-cols-[1.18fr_0.82fr] lg:items-start; }
   .project-collage .project-shot--report { @apply lg:-ml-5; }
   .project-collage .project-shot--oracle { @apply lg:mr-6 lg:mt-20; }
   .project-evidence { @apply mt-20 border-y border-x-0 px-0 sm:px-0 lg:px-0; }
+
+  /* Cursor-reactive identity transition: the source artwork fades into the grid. */
+  .ty-section { isolation: isolate; }
+  .ty-section__glow { right: -12rem; top: 2rem; background: hsl(var(--skill-purple)); opacity: 0.11; }
+  .ty-section__layout { @apply grid min-w-0 items-center gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-14; }
+  .ty-visual {
+    --ty-rotate-x: 0deg;
+    --ty-rotate-y: 0deg;
+    --ty-shift-x: 0px;
+    --ty-shift-y: 0px;
+    --ty-glow-x: 50%;
+    --ty-glow-y: 50%;
+    @apply relative mx-auto w-full max-w-3xl overflow-hidden;
+    perspective: 1000px;
+    isolation: isolate;
+  }
+  .ty-visual::before {
+    content: "";
+    @apply pointer-events-none absolute inset-[12%] -z-10 rounded-full blur-3xl;
+    background: radial-gradient(circle at var(--ty-glow-x) var(--ty-glow-y), hsl(var(--skill-blue) / 0.2), hsl(var(--skill-purple) / 0.09) 42%, transparent 72%);
+    opacity: 0.8;
+    transition: opacity 260ms ease;
+  }
+  .ty-visual__depth {
+    transform: rotateX(var(--ty-rotate-x)) rotateY(var(--ty-rotate-y)) translate3d(var(--ty-shift-x), var(--ty-shift-y), 0);
+    transform-style: preserve-3d;
+    transition: transform 420ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  }
+  .ty-visual img {
+    @apply block h-auto w-full select-none;
+    mix-blend-mode: multiply;
+    opacity: 0.84;
+    mask-image: radial-gradient(ellipse 76% 72% at 50% 50%, black 42%, transparent 94%);
+    -webkit-mask-image: radial-gradient(ellipse 76% 72% at 50% 50%, black 42%, transparent 94%);
+    transform: translateZ(20px);
+  }
+  .dark .ty-visual img { mix-blend-mode: screen; opacity: 0.92; }
 
   /* Hybrid skill tree: connected capability core on desktop, direct feedback elsewhere. */
   .interactive-skills { --selected-skill-color: hsl(var(--skill-blue)); @apply min-w-0; }
@@ -801,6 +848,13 @@ All colors MUST be HSL.
   .kinetic-gallery__controls { @apply justify-center; }
   .skill-tree-card { min-height: 0; }
   .project-home-shot, .project-collage .project-shot--report, .project-collage .project-shot--oracle { transform: none; margin: 0; }
+  .ty-section__layout { @apply gap-6; }
+}
+
+@media (max-width: 767px), (hover: none), (pointer: coarse) {
+  .ty-visual { perspective: none; }
+  .ty-visual__depth { transform: none !important; transition: none; }
+  .ty-visual::before { background-position: 50% 50%; }
 }
 
 @supports not (transform-style: preserve-3d) {
@@ -821,6 +875,8 @@ All colors MUST be HSL.
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .ty-visual__depth { will-change: transform; }
+
   .project-home-shot:hover {
     @apply border-skillOrange/40;
     box-shadow: 0 32px 78px hsl(222 60% 2% / 0.34), -18px 18px 0 -17px hsl(var(--skill-orange) / 0.8);
@@ -871,4 +927,6 @@ All colors MUST be HSL.
   }
 
   .capability-reel__track { animation: none !important; transform: none !important; }
+  .ty-visual__depth { transform: none !important; transition: none !important; }
+  .ty-visual::before { transition: none !important; }
 }
