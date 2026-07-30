@@ -634,42 +634,42 @@ All colors MUST be HSL.
   .project-collage .project-shot--oracle { @apply lg:mr-6 lg:mt-20; }
   .project-evidence { @apply mt-20 border-y border-x-0 px-0 sm:px-0 lg:px-0; }
 
-  /* Cursor-reactive identity transition: the source artwork fades into the grid. */
+  /* Real-time TY identity transition: transparent WebGL with an image fallback. */
   .ty-section { isolation: isolate; }
-  .ty-section__glow { right: -12rem; top: 2rem; background: hsl(var(--skill-purple)); opacity: 0.11; }
+  .ty-section__glow { right: -12rem; top: 2rem; background: hsl(var(--skill-blue)); opacity: 0.065; }
+  .dark .ty-section__glow { opacity: 0.1; }
   .ty-section__layout { @apply grid min-w-0 items-center gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-14; }
   .ty-visual {
-    --ty-rotate-x: 0deg;
-    --ty-rotate-y: 0deg;
-    --ty-shift-x: 0px;
-    --ty-shift-y: 0px;
-    --ty-glow-x: 50%;
-    --ty-glow-y: 50%;
     @apply relative mx-auto w-full max-w-3xl overflow-hidden;
-    perspective: 1000px;
+    aspect-ratio: 16 / 9;
     isolation: isolate;
   }
   .ty-visual::before {
     content: "";
-    @apply pointer-events-none absolute inset-[12%] -z-10 rounded-full blur-3xl;
-    background: radial-gradient(circle at var(--ty-glow-x) var(--ty-glow-y), hsl(var(--skill-blue) / 0.2), hsl(var(--skill-purple) / 0.09) 42%, transparent 72%);
-    opacity: 0.8;
-    transition: opacity 260ms ease;
+    @apply pointer-events-none absolute inset-[8%] -z-10 rounded-full blur-3xl;
+    background: radial-gradient(ellipse at center, hsl(var(--skill-blue) / 0.105), transparent 72%);
   }
-  .ty-visual__depth {
-    transform: rotateX(var(--ty-rotate-x)) rotateY(var(--ty-rotate-y)) translate3d(var(--ty-shift-x), var(--ty-shift-y), 0);
-    transform-style: preserve-3d;
-    transition: transform 420ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  .dark .ty-visual::before { background: radial-gradient(ellipse at center, hsl(var(--skill-blue) / 0.18), transparent 72%); }
+  .ty-visual::after {
+    content: "";
+    @apply pointer-events-none absolute inset-x-[8%] bottom-[8%] h-px;
+    background: linear-gradient(90deg, transparent, hsl(var(--skill-blue) / 0.38), transparent);
   }
-  .ty-visual img {
+  .ty-canvas,
+  .ty-fallback { @apply absolute inset-0; }
+  .ty-canvas canvas { @apply block h-full w-full; outline: none; }
+  .ty-fallback {
+    @apply flex items-center justify-center;
+    mask-image: radial-gradient(ellipse 78% 82% at 50% 50%, black 54%, transparent 96%);
+    -webkit-mask-image: radial-gradient(ellipse 78% 82% at 50% 50%, black 54%, transparent 96%);
+  }
+  .ty-fallback img {
     @apply block h-auto w-full select-none;
     mix-blend-mode: multiply;
-    opacity: 0.84;
-    mask-image: radial-gradient(ellipse 76% 72% at 50% 50%, black 42%, transparent 94%);
-    -webkit-mask-image: radial-gradient(ellipse 76% 72% at 50% 50%, black 42%, transparent 94%);
-    transform: translateZ(20px);
+    filter: brightness(1.22) saturate(0.82) contrast(0.92);
+    opacity: 0.68;
   }
-  .dark .ty-visual img { mix-blend-mode: screen; opacity: 0.92; }
+  .dark .ty-fallback img { filter: none; mix-blend-mode: screen; opacity: 0.94; }
 
   /* Hybrid skill tree: connected capability core on desktop, direct feedback elsewhere. */
   .interactive-skills { --selected-skill-color: hsl(var(--skill-blue)); @apply min-w-0; }
@@ -852,9 +852,7 @@ All colors MUST be HSL.
 }
 
 @media (max-width: 767px), (hover: none), (pointer: coarse) {
-  .ty-visual { perspective: none; }
-  .ty-visual__depth { transform: none !important; transition: none; }
-  .ty-visual::before { background-position: 50% 50%; }
+  .ty-visual { max-width: 42rem; }
 }
 
 @supports not (transform-style: preserve-3d) {
@@ -875,8 +873,6 @@ All colors MUST be HSL.
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .ty-visual__depth { will-change: transform; }
-
   .project-home-shot:hover {
     @apply border-skillOrange/40;
     box-shadow: 0 32px 78px hsl(222 60% 2% / 0.34), -18px 18px 0 -17px hsl(var(--skill-orange) / 0.8);
@@ -927,6 +923,4 @@ All colors MUST be HSL.
   }
 
   .capability-reel__track { animation: none !important; transform: none !important; }
-  .ty-visual__depth { transform: none !important; transition: none !important; }
-  .ty-visual::before { transition: none !important; }
 }
